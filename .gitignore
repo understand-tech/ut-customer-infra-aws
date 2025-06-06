@@ -1,0 +1,7 @@
+.DS_Store
+.vscode
+.idea
+.terraform
+.out
+.terraform.*
+terraform.tfstate*
