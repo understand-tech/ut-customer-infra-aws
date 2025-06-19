@@ -62,6 +62,7 @@ To deploy UT Platform on your AWS account you need:
         "OPENID_CLIENT_ID":"your_value",
         "OPENID_CLIENT_SECRET":"your_value",
         "OPENID_SECRET_KEY":"your_value",
+        "OPENID_FRONTEND_REDIRECT_URI":"your_value",
         "server_metadata_url":"your_value",
         "token_endpoint":"your_value",
         "jwks_endpoint":"your_value",
@@ -86,6 +87,7 @@ To deploy UT Platform on your AWS account you need:
 | OPENID_CLIENT_ID             | Yes      | Client ID registered in your OpenID provider (e.g., AWS Cognito)                      |               |
 | OPENID_CLIENT_SECRET         | Yes      | Client secret registered in your OpenID provider                                      |               |
 | OPENID_SECRET_KEY            | Yes      | Key used to encrypt user sessions and state in the backend                            |               |
+| OPENID_FRONTEND_REDIRECT_URI | Yes      | URI used by your OpenID provider to redirect user after authentication                | https://<your_domain>/en/login/openid-auth |
 | server_metadata_url          | Yes      | URL to `.well-known/openid-configuration` on your OpenID provider                     |               |
 | token_endpoint               | Yes      | OpenID token endpoint URL used during login flow                                      |               |
 | jwks_endpoint                | Yes      | JWKS endpoint URL to fetch public signing keys for JWT validation                     |               |
@@ -115,6 +117,13 @@ To deploy UT Platform on your AWS account you need:
 | ZOHO_CLIENT_SECRET    | No       | OAuth client secret for Zoho CRM                                    |               |
 | ZOHO_AUTH_URL         | No       | Zoho OAuth authorization URL                                        |               |
 | ZOHO_TOKEN_URL        | No       | Zoho OAuth token exchange URL         
+
+### OpenID provider configuration
+
+The OpenID provider app configuration will require a callback URI that need to be set to : 
+```
+https://<your_domain>/api/openid/callback
+```
 
 ## Configuration Details
 
