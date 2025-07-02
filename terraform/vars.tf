@@ -128,3 +128,13 @@ variable "redis_backup_retention" {
   default     = 5
   type        = number
 }
+
+
+#####################################
+# ----- Cognito Parameters -------- #
+#####################################
+variable "enable_cognito" {
+  description = "Enable Cognito User Pool and related resources for authentication"
+  type        = bool
+  default     = false
+}

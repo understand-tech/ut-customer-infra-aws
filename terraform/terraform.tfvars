@@ -87,3 +87,17 @@ public_subnets_ids = [
 
 # Number of backup copies to retain
 # redis_backup_retention = 5
+
+
+#####################################
+# ----- Cognito Parameters -------- #
+#####################################
+
+# Enable Cognito User Pool for authentication
+# Set to true if you want to use AWS Cognito for user authentication
+# When enabled, this will create:
+# - Cognito User Pool
+# - User Pool Client
+# - User Pool Domain
+# - Secrets Manager entry with Cognito configuration
+enable_cognito = false
