@@ -36,7 +36,7 @@ variable "private_subnets_ids" {
 }
 
 variable "public_subnets_ids" {
-  description = "IDs of the private subnets to use"
+  description = "IDs of the public subnets to use"
   type        = list(string)
 }
 
