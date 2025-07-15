@@ -136,7 +136,7 @@ AWS ECS Service must be able to access this registry; ensure GitHub credentials 
 
 | Parameter | Value|
 |-----------|------|
-| Docker image | ghcr.io/understand-tech/ut-frontend-customer:latest |
+| Docker image | ghcr.io/understand-tech/ut-frontend-customer:1.0.1-release |
 | vCPU | 0.256 |
 | Memory | 512 Mo |
 | TCP port | 80 |
@@ -147,7 +147,7 @@ AWS ECS Service must be able to access this registry; ensure GitHub credentials 
 
 | Parameter | Value|
 |-----------|------|
-| Docker image | ghcr.io/understand-tech/ut-api-customer:latest |
+| Docker image | ghcr.io/understand-tech/ut-api-customer:1.0.1-release |
 | vCPU | 4 |
 | Memory | 8 Go |
 | TCP port | 8501 |
@@ -160,7 +160,7 @@ AWS ECS Service must be able to access this registry; ensure GitHub credentials 
 
 | Parameter | Value|
 |-----------|------|
-| Docker image | ghcr.io/understand-tech/ut-worker-customer:latest |
+| Docker image | ghcr.io/understand-tech/ut-worker-customer:1.0.1-release |
 | vCPU | 4 |
 | Memory | 8 Go |
 | TCP port | N/A |
@@ -173,7 +173,7 @@ AWS ECS Service must be able to access this registry; ensure GitHub credentials 
 
 | Parameter | Value|
 |-----------|------|
-| Docker image | ghcr.io/understand-tech/ut-llm-customer:latest |
+| Docker image | ghcr.io/understand-tech/ut-llm-customer:1.0.1-release |
 | vCPU | 86 |
 | Memory | 176 Go |
 | TCP port | 8000 |
@@ -377,16 +377,16 @@ No modules.
 | <a name="input_deployment_role_arn"></a> [deployment\_role\_arn](#input\_deployment\_role\_arn) | ARN of the IAM role that should be used by Terraform for deployment | `string` | n/a | yes |
 | <a name="input_external_id"></a> [external\_id](#input\_external\_id) | External ID associated with deployment role in each account | `string` | n/a | yes |
 | <a name="input_llm_instance_type"></a> [llm\_instance\_type](#input\_llm\_instance\_type) | EC2 instance type to use for LLM instances | `string` | `"g6.12xlarge"` | no |
-| <a name="input_llm_registry_uri"></a> [llm\_registry\_uri](#input\_llm\_registry\_uri) | URI used to download UT LLM docker image | `string` | `"ghcr.io/understand-tech/ut-llm:latest"` | no |
+| <a name="input_llm_registry_uri"></a> [llm\_registry\_uri](#input\_llm\_registry\_uri) | URI used to download UT LLM docker image | `string` | `"ghcr.io/understand-tech/ut-llm:1.0.1-release"` | no |
 | <a name="input_private_subnets_ids"></a> [private\_subnets\_ids](#input\_private\_subnets\_ids) | IDs of the private subnets to use | `list(string)` | n/a | yes |
 | <a name="input_public_subnets_ids"></a> [public\_subnets\_ids](#input\_public\_subnets\_ids) | IDs of the private subnets to use | `list(string)` | n/a | yes |
 | <a name="input_redis_backup_retention"></a> [redis\_backup\_retention](#input\_redis\_backup\_retention) | Define the number of backup copy to keep | `number` | `5` | no |
 | <a name="input_redis_maintenance_window"></a> [redis\_maintenance\_window](#input\_redis\_maintenance\_window) | Define the time interval when AWS will proceed to cluster maintenance | `string` | `"sun:04:00-sun:05:00"` | no |
 | <a name="input_redis_node_type"></a> [redis\_node\_type](#input\_redis\_node\_type) | Define the size of the redis instances | `string` | `"cache.r7g.2xlarge"` | no |
 | <a name="input_redis_snapshot_window"></a> [redis\_snapshot\_window](#input\_redis\_snapshot\_window) | Define the time interval when AWS will proceed to cluster backup | `string` | `"03:00-04:00"` | no |
-| <a name="input_ut_api_registry_uri"></a> [ut\_api\_registry\_uri](#input\_ut\_api\_registry\_uri) | URI used to download UT API docker image | `string` | `"ghcr.io/understand-tech/ut-api:latest"` | no |
-| <a name="input_ut_frontend_registry_uri"></a> [ut\_frontend\_registry\_uri](#input\_ut\_frontend\_registry\_uri) | URI used to download UT Frontend docker image | `string` | `"ghcr.io/understand-tech/ut-frontend:latest"` | no |
-| <a name="input_ut_worker_registry_uri"></a> [ut\_worker\_registry\_uri](#input\_ut\_worker\_registry\_uri) | URI used to download UT Worker docker image | `string` | `"ghcr.io/understand-tech/ut-worker:latest"` | no |
+| <a name="input_ut_api_registry_uri"></a> [ut\_api\_registry\_uri](#input\_ut\_api\_registry\_uri) | URI used to download UT API docker image | `string` | `"ghcr.io/understand-tech/ut-api:1.0.1-release"` | no |
+| <a name="input_ut_frontend_registry_uri"></a> [ut\_frontend\_registry\_uri](#input\_ut\_frontend\_registry\_uri) | URI used to download UT Frontend docker image | `string` | `"ghcr.io/understand-tech/ut-frontend:1.0.1-release"` | no |
+| <a name="input_ut_worker_registry_uri"></a> [ut\_worker\_registry\_uri](#input\_ut\_worker\_registry\_uri) | URI used to download UT Worker docker image | `string` | `"ghcr.io/understand-tech/ut-worker:1.0.1-release"` | no |
 | <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | ID of the VPC to use | `string` | n/a | yes |
 
 ### Outputs

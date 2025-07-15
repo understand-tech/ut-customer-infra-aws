@@ -46,7 +46,7 @@ variable "public_subnets_ids" {
 #######################################
 variable "ut_frontend_registry_uri" {
   description = "URI used to download UT Frontend docker image"
-  default     = "ghcr.io/understand-tech/ut-frontend-customer:1.0.0-release"
+  default     = "ghcr.io/understand-tech/ut-frontend-customer:1.0.1-release"
   type        = string
 }
 
@@ -68,7 +68,7 @@ variable "cloudfront_alternate_domain_list" {
 ##################################
 variable "ut_api_registry_uri" {
   description = "URI used to download UT API docker image"
-  default     = "ghcr.io/understand-tech/ut-api-customer:1.0.0-release"
+  default     = "ghcr.io/understand-tech/ut-api-customer:1.0.1-release"
   type        = string
 }
 
@@ -78,7 +78,7 @@ variable "ut_api_registry_uri" {
 ######################################
 variable "ut_worker_registry_uri" {
   description = "URI used to download UT Worker docker image"
-  default     = "ghcr.io/understand-tech/ut-worker-customer:1.0.0-release"
+  default     = "ghcr.io/understand-tech/ut-worker-customer:1.0.1-release"
   type        = string
 }
 
@@ -88,7 +88,7 @@ variable "ut_worker_registry_uri" {
 #########################################
 variable "llm_registry_uri" {
   description = "URI used to download UT LLM docker image"
-  default     = "ghcr.io/understand-tech/ut-llm-customer:1.0.0-release"
+  default     = "ghcr.io/understand-tech/ut-llm-customer:1.0.1-release"
   type        = string
 }
 
