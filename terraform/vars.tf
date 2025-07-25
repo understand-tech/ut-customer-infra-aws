@@ -104,7 +104,7 @@ variable "llm_instance_type" {
 #################################
 variable "redis_node_type" {
   description = "Define the size of the redis instances"
-  default     = "cache.r7g.2xlarge"
+  default     = "cache.t4g.small"
   type        = string
 }
 
