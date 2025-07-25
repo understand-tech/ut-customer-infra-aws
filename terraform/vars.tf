@@ -94,7 +94,7 @@ variable "llm_registry_uri" {
 
 variable "llm_instance_type" {
   description = "EC2 instance type to use for LLM instances"
-  default     = "g6.12xlarge"
+  default     = "g6e.8xlarge"
   type        = string
 }
 
