@@ -94,7 +94,7 @@ variable "llm_registry_uri" {
 
 variable "llm_instance_type" {
   description = "EC2 instance type to use for LLM instances"
-  default     = "g6.12xlarge"
+  default     = "g6e.8xlarge"
   type        = string
 }
 
@@ -104,7 +104,7 @@ variable "llm_instance_type" {
 #################################
 variable "redis_node_type" {
   description = "Define the size of the redis instances"
-  default     = "cache.r7g.2xlarge"
+  default     = "cache.t4g.small"
   type        = string
 }
 

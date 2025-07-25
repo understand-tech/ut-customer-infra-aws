@@ -41,8 +41,8 @@ resource "aws_ecs_service" "ut_llm_service" {
 resource "aws_ecs_task_definition" "ut_llm" {
   family       = "ut-llm"
   network_mode = "awsvpc"
-  cpu          = "43000"  # ~86 vCPUs
-  memory       = "180224" # ~176 GiB
+  cpu          = "30000"
+  memory       = "200000"
 
   execution_role_arn       = aws_iam_role.ut_llm_container_role.arn
   task_role_arn            = aws_iam_role.ut_llm_container_role.arn
