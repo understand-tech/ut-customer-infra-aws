@@ -64,6 +64,12 @@ resource "aws_autoscaling_group" "ut_llg_asg" {
     propagate_at_launch = true
   }
 
+  tag {
+    key                 = "AmazonECSManaged"
+    value               = true
+    propagate_at_launch = true
+  }
+
   # Prevent Terraform from interfering in scale process
   lifecycle {
     ignore_changes = [desired_capacity]
