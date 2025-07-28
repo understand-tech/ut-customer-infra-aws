@@ -125,6 +125,19 @@ The OpenID provider app configuration will require a callback URI that need to b
 https://<your_domain>/api/openid/callback
 ```
 
+
+### Authentication Setup
+
+The UT Platform optionaly deploys a Cognito User Pool if you do not already have your own Identity Provider.
+
+When `enable_cognito = true` in `terraform.tfvars`, the Terraform deployment automatically creates:
+
+- **Cognito User Pool**: Manages user registration, authentication, and profiles
+- **Cognito User Pool Client**: Configured for OAuth2/OpenID Connect flows
+- **Cognito Domain**: Provides hosted UI for authentication
+- **Automatic Secret Configuration**: OpenID parameters are automatically populated in AWS Secrets Manager
+
+
 ## Configuration Details
 
 ### Docker Images
