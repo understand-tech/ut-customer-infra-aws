@@ -178,7 +178,7 @@ resource "aws_ecs_task_definition" "ut_llm" {
       resourceRequirements = [
         {
           "type" : "GPU"
-          "value" : "4"
+          "value" : "1"
         }
       ],
       essential = true
