@@ -88,7 +88,7 @@ resource "aws_security_group_rule" "ut_alb_http_inbound_from_cloudfront" {
   to_port           = 80
   protocol          = "tcp"
   description       = "Requests from cloudfront private origin"
-  prefix_list_ids   = ["pl-a3a144ca"]
+  prefix_list_ids   = [data.aws_ec2_managed_prefix_list.cloudfront.id]
   security_group_id = aws_security_group.ut_private_cloudfront_origin_sg.id
 }
 

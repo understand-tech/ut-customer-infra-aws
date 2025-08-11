@@ -36,7 +36,7 @@ variable "private_subnets_ids" {
 }
 
 variable "public_subnets_ids" {
-  description = "IDs of the private subnets to use"
+  description = "IDs of the public subnets to use"
   type        = list(string)
 }
 
@@ -127,4 +127,14 @@ variable "redis_backup_retention" {
   description = "Define the number of backup copy to keep"
   default     = 5
   type        = number
+}
+
+
+#####################################
+# ----- Cognito Parameters -------- #
+#####################################
+variable "enable_cognito" {
+  description = "Enable Cognito User Pool and related resources for authentication"
+  type        = bool
+  default     = false
 }
