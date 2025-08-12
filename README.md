@@ -437,7 +437,7 @@ resource "aws_ecs_service" "ut_llm_service" {
 > **Note**  
 > `health_check_grace_period_seconds` only applies when the service is attached to a load balancer.
 
-### Resolution (AWS Console hotfix)
+**Resolution (AWS Console hotfix)**
 
 If you cannot update via Terraform immediately, you can change the health check grace period directly in the AWS Console:
 
@@ -448,6 +448,15 @@ If you cannot update via Terraform immediately, you can change the health check 
 5. In the **Deployment configuration** section, locate **Health check grace period (seconds)**.
 6. Change the value (e.g., from `120` to `300`).
 7. Scroll down and click **Update service** to apply the change.
+
+### UT-LLM task being stopped by because of insufficient EFS throughput
+In some cases, the UT-LLM task could stop due to insufficient EFS throughput during deployment.
+If this happens, you will be able to see the error from the **EFS console**.
+
+From the EFS console, select `ut-llm-ollama-efs`, then **Monitoring**.
+If the **Throughput utilization (%)** metric is dangerously high (>75%), it likely means that you are out of [EFS burst credits](https://repost.aws/knowledge-center/efs-burst-credits).
+
+In this case, simply edit the `ut-llm-ollama-efs` to use an [Elastic Throughput](https://docs.aws.amazon.com/efs/latest/ug/performance.html#elastic) mode instead of [Bursting throughput](https://docs.aws.amazon.com/efs/latest/ug/performance.html#bursting) (default)
 
 ## License
 
