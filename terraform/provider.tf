@@ -11,7 +11,7 @@ terraform {
 provider "aws" {
   region = var.aws_region
   assume_role {
-    role_arn    = var.deployment_role_arn
+    role_arn = var.deployment_role_arn
   }
 
   default_tags {
@@ -25,7 +25,7 @@ provider "aws" {
   alias  = "NVirginia"
   region = "us-east-1"
   assume_role {
-    role_arn    = var.deployment_role_arn
+    role_arn = var.deployment_role_arn
   }
 
   default_tags {

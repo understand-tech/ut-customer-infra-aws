@@ -49,7 +49,16 @@ resource "aws_ecs_task_definition" "ut_frontend" {
         {
           name      = "DOMAIN_URL",
           valueFrom = "${aws_secretsmanager_secret.ut_api_secret_automation.arn}:DOMAIN_URL::"
+        },
+        {
+          name      = "BACKEND_URL",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret_automation.arn}:BACKEND_URL::"
+        },
+        {
+          name      = "URL_API_REST",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:URL_API_REST::"
         }
+
       ],
       repositoryCredentials = {
         credentialsParameter = "${aws_secretsmanager_secret.github_container_registry_crdentials.arn}"

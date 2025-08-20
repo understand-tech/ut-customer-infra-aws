@@ -19,7 +19,8 @@ resource "aws_secretsmanager_secret_version" "ut_api_secret_automation_version" 
     LLM_ALB_HOST         = "http://${aws_lb.ut_llm_alb.dns_name}:80"
     UT_USERS_DATA_BUCKET = aws_s3_bucket.ut_data_bucket.bucket
     DOMAIN_URL           = "https://${aws_cloudfront_distribution.ut_frontend_distribution.domain_name}/"
-    S3_REGION= var.aws_region
+    BACKEND_URL          = "https://${aws_cloudfront_distribution.ut_frontend_distribution.domain_name}/api"
+    S3_REGION            = var.aws_region
   })
 }
 

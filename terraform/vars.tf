@@ -138,3 +138,64 @@ variable "enable_cognito" {
   type        = bool
   default     = false
 }
+
+######################################
+# ----- Public API Parameters ------ #
+######################################
+variable "ut_api_customer_registry_uri" {
+  description = "URI used to download UT API CUSTOMER docker image"
+  default     = "ghcr.io/understand-tech/ut-api-custom:latest"
+}
+
+variable "ut_api_customer_desired_count" {
+  description = "Define the default number of container to support public API"
+  default     = 1
+}
+
+variable "ut_api_customer_listen_port" {
+  description = "TCP port to listen for public API container"
+  default     = 8501
+}
+
+variable "ut_api_customer_manual_variable" {
+  description = "Dynamic map of secrets to expose as env variables"
+}
+
+##################################
+# ----- UT API Parameters ------ #
+##################################
+variable "ut_api_registry_uri" {
+  description = "URI used to download UT API docker image"
+  default     = "ghcr.io/understand-tech/ut-api:latest"
+}
+
+variable "ut_desired_count" {
+  description = "Define the default number of container to support UT-API"
+  default     = 1
+}
+
+variable "ut_listen_port" {
+  description = "TCP port to listen for UT-API container"
+  default     = 8501
+}
+
+variable "ut_api_manual_env_variables" {
+  description = "Dynamic map of secrets to expose as env variables"
+}
+
+###############################################
+# ----- UT Workers Customer Parameters ------ #
+###############################################
+variable "worker_customer_registry_uri" {
+  description = "URI used to download UT Worker docker image"
+  default     = "ghcr.io/understand-tech/ut-worker:latest"
+}
+
+variable "ut_workers_customer_desired_count" {
+  description = "Define the default number of workers-customer container"
+  default     = 2
+}
+
+variable "worker_customer_manual_env_variables" {
+  description = "Dynamic map of secrets to expose as env variables"
+}

@@ -72,11 +72,13 @@ resource "aws_security_group_rule" "ut_workers_to_llm_alb_rule" {
   security_group_id        = aws_security_group.ut_llm_alb_sg.id
 }
 
-resource "aws_security_group_rule" "llm_alb_sg_egress" {
+resource "aws_security_group_rule" "llm_alb_sg_egress_tcp" {
   type      = "egress"
   from_port = 0
   to_port   = 0
-  protocol  = "-1"
+  protocol  = "tcp"
+
+  description = "Allow tcp outbound"
 
   cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = aws_security_group.ut_llm_alb_sg.id

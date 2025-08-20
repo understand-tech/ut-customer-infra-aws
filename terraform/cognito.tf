@@ -16,7 +16,7 @@ resource "aws_cognito_user_pool" "ut_user_pool" {
 
   # Auto-verified attributes
   auto_verified_attributes = ["email"]
-  
+
   # Alias attributes (allow login with email)
   alias_attributes = ["email"]
 
@@ -67,7 +67,7 @@ resource "aws_cognito_user_pool" "ut_user_pool" {
     attribute_data_type = "String"
     required            = true
     mutable             = true
-    
+
     string_attribute_constraints {
       min_length = "0"
       max_length = "2048"
@@ -102,7 +102,7 @@ resource "aws_cognito_user_pool_client" "ut_user_pool_client" {
 
   # OAuth configuration
   supported_identity_providers = ["COGNITO"]
-  
+
   callback_urls = [
     "https://${local.frontend_domain}/api/openid/callback"
   ]
@@ -110,15 +110,15 @@ resource "aws_cognito_user_pool_client" "ut_user_pool_client" {
   allowed_oauth_flows = ["code"]
   allowed_oauth_scopes = [
     "email",
-    "openid", 
+    "openid",
     "phone",
     "profile"
   ]
   allowed_oauth_flows_user_pool_client = true
 
   # Security settings
-  prevent_user_existence_errors               = "LEGACY"
-  enable_token_revocation                     = false
+  prevent_user_existence_errors                 = "LEGACY"
+  enable_token_revocation                       = false
   enable_propagate_additional_user_context_data = false
 
   # Generate client secret
@@ -170,14 +170,14 @@ resource "aws_secretsmanager_secret_version" "ut_cognito_config_version" {
   count     = var.enable_cognito ? 1 : 0
   secret_id = aws_secretsmanager_secret.ut_cognito_config[0].id
   secret_string = jsonencode({
-    user_pool_id     = aws_cognito_user_pool.ut_user_pool[0].id
-    client_id        = aws_cognito_user_pool_client.ut_user_pool_client[0].id
-    client_secret    = aws_cognito_user_pool_client.ut_user_pool_client[0].client_secret
-    domain           = aws_cognito_user_pool_domain.ut_user_pool_domain[0].domain
-    issuer_url       = "https://cognito-idp.${var.aws_region}.amazonaws.com/${aws_cognito_user_pool.ut_user_pool[0].id}"
-    jwks_uri         = "https://cognito-idp.${var.aws_region}.amazonaws.com/${aws_cognito_user_pool.ut_user_pool[0].id}/.well-known/jwks.json"
+    user_pool_id           = aws_cognito_user_pool.ut_user_pool[0].id
+    client_id              = aws_cognito_user_pool_client.ut_user_pool_client[0].id
+    client_secret          = aws_cognito_user_pool_client.ut_user_pool_client[0].client_secret
+    domain                 = aws_cognito_user_pool_domain.ut_user_pool_domain[0].domain
+    issuer_url             = "https://cognito-idp.${var.aws_region}.amazonaws.com/${aws_cognito_user_pool.ut_user_pool[0].id}"
+    jwks_uri               = "https://cognito-idp.${var.aws_region}.amazonaws.com/${aws_cognito_user_pool.ut_user_pool[0].id}/.well-known/jwks.json"
     authorization_endpoint = "https://${aws_cognito_user_pool_domain.ut_user_pool_domain[0].domain}.auth.${var.aws_region}.amazoncognito.com/oauth2/authorize"
-    token_endpoint   = "https://${aws_cognito_user_pool_domain.ut_user_pool_domain[0].domain}.auth.${var.aws_region}.amazoncognito.com/oauth2/token"
-    userinfo_endpoint = "https://${aws_cognito_user_pool_domain.ut_user_pool_domain[0].domain}.auth.${var.aws_region}.amazoncognito.com/oauth2/userInfo"
+    token_endpoint         = "https://${aws_cognito_user_pool_domain.ut_user_pool_domain[0].domain}.auth.${var.aws_region}.amazoncognito.com/oauth2/token"
+    userinfo_endpoint      = "https://${aws_cognito_user_pool_domain.ut_user_pool_domain[0].domain}.auth.${var.aws_region}.amazoncognito.com/oauth2/userInfo"
   })
 }

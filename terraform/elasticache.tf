@@ -63,11 +63,13 @@ resource "aws_security_group_rule" "ut_workers_to_ut_redis_rule" {
   security_group_id        = aws_security_group.ut_redis_sg.id
 }
 
-resource "aws_security_group_rule" "ut_redis_outbound_rule" {
+resource "aws_security_group_rule" "ut_redis_outbound_tcp_rule" {
   type      = "egress"
   from_port = 0
   to_port   = 0
-  protocol  = "-1"
+  protocol  = "tcp"
+
+  description = "Allow tcp outbound"
 
   cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = aws_security_group.ut_redis_sg.id
