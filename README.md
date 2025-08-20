@@ -138,6 +138,11 @@ When `enable_cognito = true` in `terraform.tfvars`, the Terraform deployment aut
 - **Automatic Secret Configuration**: OpenID parameters are automatically populated in AWS Secrets Manager
 
 
+## Security improvement
+
+Public endpoint are actually exposed on HTTP. We strongly recommand to add an https listener (https://docs.aws.amazon.com/elasticloadbalancing/latest/application/create-https-listener.html).
+
+
 ## Configuration Details
 
 ### Docker Images
