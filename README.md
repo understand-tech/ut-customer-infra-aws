@@ -209,6 +209,22 @@ AWS ECS Service must be able to access this registry; ensure GitHub credentials 
 | TCP port | 27017 |
 | Storage | 20 Go |
 
+#### UT-API-CUSTOMER
+
+| Parameter | Value|
+|-----------|------|
+| Docker image | ghcr.io/understand-tech/ut-api:latest |
+| vCPU | 4 |
+| Memory | 8 Go |
+| TCP port | 8501 |
+| Storage* | 10 Go |
+
+#### REDIS
+
+| Parameter | Value|
+|-----------|------|
+| instance | cache.t4g.small |
+
 
 ### Deployment IAM role
 The Terraform setup requires an IAM role to deploy infrastructure on AWS. This role will be added to AWS SecretsManager secrets's policy to manage secrets.  
