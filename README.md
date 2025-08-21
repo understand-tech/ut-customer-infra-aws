@@ -17,6 +17,7 @@ To deploy UT Platform on your AWS account you need:
 - **AWS Account Requirements:**
     - A VPC
     - Public and private subnets for each availability zone you want to use
+    - Private subnets should have access to internet (With Nat Gateway for example) to be able to download docker images
     - A deployment IAM role that can be assumed by yourself or your pipeline
     - An admin role that will be grantted access on AWS SecretsManager secrets
     - An ACM certificat for the cloudfront distribution
