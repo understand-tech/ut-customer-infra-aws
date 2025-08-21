@@ -62,17 +62,6 @@ variable "cloudfront_alternate_domain_list" {
   default     = []
 }
 
-
-##################################
-# ----- UT API Parameters ------ #
-##################################
-variable "ut_api_registry_uri" {
-  description = "URI used to download UT API docker image"
-  default     = "ghcr.io/understand-tech/ut-api-customer:1.0.3-release"
-  type        = string
-}
-
-
 ######################################
 # ----- UT Workers Parameters ------ #
 ######################################
