@@ -112,13 +112,13 @@ To deploy UT Platform on your AWS account you need:
 | DEEPSEEK_API_KEY      | No       | API key for Deepseek                                                |               |
 | XAI_API_KEY           | No       | API key for xAI (Grok)                                              |               |
 | PERPLEXITY_API_KEY    | No       | API key for Perplexity                                              |               |
-| OA_KEY|               | No       | API key for OpenAI                                                  |               |
-| MISTRAL_API_KEY|      | No       | API key for Mistral                                                 |               |
-| CLAUDE_API_KEY|       | No       | API key for Anthropic                                               |               |
-| GOOGLE_API_KEY|       | No       | API key for Google Gemini                                           |               |
-| AZURE_SQL_DATABASE|   | No       | Leave empty                                        |               |
-| AZURE_SQL_USERNAME|   | No       | Leave empty                                        |               |
-| UT_KEY|               | No       | Leave empty                                        |               |
+| OA_KEY                | No       | API key for OpenAI                                                  |               |
+| MISTRAL_API_KEY       | No       | API key for Mistral                                                 |               |
+| CLAUDE_API_KEY        | No       | API key for Anthropic                                               |               |
+| GOOGLE_API_KEY        | No       | API key for Google Gemini                                           |               |
+| AZURE_SQL_DATABASE    | No       | Leave empty                                        |               |
+| AZURE_SQL_USERNAME    | No       | Leave empty                                        |               |
+| UT_KEY                | No       | Leave empty                                        |               |
 | AZURE_SQL_PASSWORD    | No       | Leave empty                                        |               |
 | AZURE_SQL_SERVER      | No       | Leave empty                                        |               |
 | FRONTEND_URL_AUTH     | No       | Leave empty                                        |               |
