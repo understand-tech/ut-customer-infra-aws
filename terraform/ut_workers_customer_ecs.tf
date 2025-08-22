@@ -265,7 +265,7 @@ resource "aws_security_group" "workers_customer_sg" {
 resource "aws_security_group_rule" "workers_customer_egress_rule" {
   type        = "egress"
   from_port   = 0
-  to_port     = 0
+  to_port     = 65535
   protocol    = "tcp"
   description = "Allow outbound on tcp"
 
