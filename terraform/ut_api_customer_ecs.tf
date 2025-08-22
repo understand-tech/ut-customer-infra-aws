@@ -3,7 +3,7 @@
 #######
 resource "aws_ecs_service" "ut_api_customer_service" {
   name                   = "ut-api-customer-service"
-  cluster                = aws_ecs_cluster.ecs_cluster.id
+  cluster                = aws_ecs_cluster.ut_cluster.id
   task_definition        = aws_ecs_task_definition.ut_api_customer.arn
   launch_type            = "FARGATE"
   desired_count          = var.ut_api_customer_desired_count
@@ -16,23 +16,10 @@ resource "aws_ecs_service" "ut_api_customer_service" {
   }
 
   network_configuration {
-    subnets          = data.aws_subnets.private.ids
+    subnets          = var.private_subnets_ids
     security_groups  = [aws_security_group.ut_api_customer_sg.id]
     assign_public_ip = false
   }
-}
-
-locals {
-  ut_api_customer_manual_variable = [
-    for key, value in var.ut_api_manual_env_variables : {
-      name      = key
-      valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}${value}"
-    }
-  ]
-
-  ut_api_customer_global_secrets = local.ut_api_customer_manual_variable
-
-  ut_api_customer_task_secret = local.ut_api_customer_global_secrets
 }
 
 resource "aws_ecs_task_definition" "ut_api_customer" {
@@ -85,7 +72,132 @@ resource "aws_ecs_task_definition" "ut_api_customer" {
           readOnly      = false
         }
       ],
-      secrets   = local.ut_api_customer_task_secret,
+      secrets = [
+        {
+          name      = "ADMIN_MAIL",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:ADMIN_MAIL::"
+        },
+        {
+          name      = "expected_issuer",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:expected_issuer::"
+        },
+        {
+          name      = "GOOGLE_CLIENT_ID",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:GOOGLE_CLIENT_ID::"
+        },
+        {
+          name      = "GOOGLE_CLIENT_SECRET",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:GOOGLE_CLIENT_SECRET::"
+        },
+        {
+          name      = "GPU_VM_API_TOKEN",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:GPU_VM_API_TOKEN::"
+        },
+        {
+          name      = "GPU_VM_URL",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret_automation.arn}:LLM_ALB_HOST::"
+        },
+        {
+          name      = "DOMAIN_URL",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret_automation.arn}:DOMAIN_URL::"
+        },
+        {
+          name      = "jwks_endpoint",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:jwks_endpoint::"
+        },
+        {
+          name      = "MICROSOFT_AUTHORITY",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:MICROSOFT_AUTHORITY::"
+        },
+        {
+          name      = "MICROSOFT_CLIENT_ID",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:MICROSOFT_CLIENT_ID::"
+        },
+        {
+          name      = "MICROSOFT_CLIENT_SECRET",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:MICROSOFT_CLIENT_SECRET::"
+        },
+        {
+          name      = "MONGODB_DATABASE",
+          valueFrom = "${aws_secretsmanager_secret.ut_mongodb_password.arn}:MONGODB_DATABASE::"
+        },
+        {
+          name      = "MONGODB_HOST",
+          valueFrom = "${aws_secretsmanager_secret.ut_mongodb_password.arn}:MONGODB_HOST::"
+        },
+        {
+          name      = "MONGODB_PASSWORD",
+          valueFrom = "${aws_secretsmanager_secret.ut_mongodb_password.arn}:MONGODB_PASSWORD::"
+        },
+        {
+          name      = "MONGODB_PORT",
+          valueFrom = "${aws_secretsmanager_secret.ut_mongodb_password.arn}:MONGODB_PORT::"
+        },
+        {
+          name      = "MONGODB_USERNAME",
+          valueFrom = "${aws_secretsmanager_secret.ut_mongodb_password.arn}:MONGODB_USERNAME::"
+        },
+        {
+          name      = "OPENID_CLIENT_ID",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:OPENID_CLIENT_ID::"
+        },
+        {
+          name      = "OPENID_CLIENT_SECRET",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:OPENID_CLIENT_SECRET::"
+        },
+        {
+          name      = "OPENID_FRONTEND_REDIRECT_URI",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:OPENID_FRONTEND_REDIRECT_URI::"
+        },
+        {
+          name      = "OPENID_SECRET_KEY",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:OPENID_SECRET_KEY::"
+        },
+        {
+          name      = "openid_scope",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:openid_scope::"
+        },
+        {
+          name      = "REDIS_HOST",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret_automation.arn}:REDIS_HOST::"
+        },
+        {
+          name      = "SENDGRID_API_KEY",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:SENDGRID_API_KEY::"
+        },
+        {
+          name      = "server_metadata_url",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:server_metadata_url::"
+        },
+        {
+          name      = "token_endpoint",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:token_endpoint::"
+        },
+        {
+          name      = "UT_USERS_DATA_BUCKET",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret_automation.arn}:UT_USERS_DATA_BUCKET::"
+        },
+        {
+          name      = "ZOHO_AUTH_URL",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:ZOHO_AUTH_URL::"
+        },
+        {
+          name      = "ZOHO_CLIENT_ID",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:ZOHO_CLIENT_ID::"
+        },
+        {
+          name      = "ZOHO_CLIENT_SECRET",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:ZOHO_CLIENT_SECRET::"
+        },
+        {
+          name      = "ZOHO_TOKEN_URL",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:ZOHO_TOKEN_URL::"
+        },
+        {
+          name      = "S3_REGION",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret_automation.arn}:S3_REGION::"
+        }
+      ]
       essential = true
     }
   ])
@@ -97,7 +209,7 @@ resource "aws_ecs_task_definition" "ut_api_customer" {
 resource "aws_security_group" "ut_api_customer_sg" {
   name        = "ut-api-customer-sg"
   description = "Controls access to ut api"
-  vpc_id      = data.aws_vpc.current-vpc.id
+  vpc_id      = var.vpc_id
 }
 
 resource "aws_security_group_rule" "alb_to_ut_customer_rule" {

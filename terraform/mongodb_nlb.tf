@@ -71,6 +71,28 @@ resource "aws_security_group_rule" "ut_workers_to_mongodb_nlb_http_rule" {
   security_group_id        = aws_security_group.ut_mongodb_nlb_sg.id
 }
 
+resource "aws_security_group_rule" "ut_api_customer_to_mongodb_nlb_http_rule" {
+  type        = "ingress"
+  from_port   = local.ut_mongodb_container_port
+  to_port     = local.ut_mongodb_container_port
+  protocol    = "tcp"
+  description = "Requests from ut-api-customer containers"
+
+  source_security_group_id = aws_security_group.ut_api_customer_sg.id
+  security_group_id        = aws_security_group.ut_mongodb_nlb_sg.id
+}
+
+resource "aws_security_group_rule" "ut_workers_customer_to_mongodb_nlb_http_rule" {
+  type        = "ingress"
+  from_port   = local.ut_mongodb_container_port
+  to_port     = local.ut_mongodb_container_port
+  protocol    = "tcp"
+  description = "Requests from ut-workers-customer containers"
+
+  source_security_group_id = aws_security_group.workers_customer_sg.id
+  security_group_id        = aws_security_group.ut_mongodb_nlb_sg.id
+}
+
 resource "aws_security_group_rule" "ut_llm_to_mongodb_nlb_http_rule" {
   type        = "ingress"
   from_port   = local.ut_mongodb_container_port

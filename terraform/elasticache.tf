@@ -63,6 +63,28 @@ resource "aws_security_group_rule" "ut_workers_to_ut_redis_rule" {
   security_group_id        = aws_security_group.ut_redis_sg.id
 }
 
+resource "aws_security_group_rule" "ut_customer_api_to_ut_redis_rule" {
+  type        = "ingress"
+  from_port   = local.ut_redis_port
+  to_port     = local.ut_redis_port
+  protocol    = "tcp"
+  description = "Requests from ut-api-customer containers"
+
+  source_security_group_id = aws_security_group.ut_api_customer_sg.id
+  security_group_id        = aws_security_group.ut_redis_sg.id
+}
+
+resource "aws_security_group_rule" "ut_customer_workers_to_ut_redis_rule" {
+  type        = "ingress"
+  from_port   = local.ut_redis_port
+  to_port     = local.ut_redis_port
+  protocol    = "tcp"
+  description = "Requests from ut-workers-customer containers"
+
+  source_security_group_id = aws_security_group.workers_customer_sg.id
+  security_group_id        = aws_security_group.ut_redis_sg.id
+}
+
 resource "aws_security_group_rule" "ut_redis_outbound_tcp_rule" {
   type      = "egress"
   from_port = 0

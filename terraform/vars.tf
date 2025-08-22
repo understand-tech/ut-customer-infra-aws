@@ -146,10 +146,6 @@ variable "ut_api_customer_listen_port" {
   default     = 8501
 }
 
-variable "ut_api_customer_manual_variable" {
-  description = "Dynamic map of secrets to expose as env variables"
-}
-
 ##################################
 # ----- UT API Parameters ------ #
 ##################################
@@ -168,10 +164,6 @@ variable "ut_listen_port" {
   default     = 8501
 }
 
-variable "ut_api_manual_env_variables" {
-  description = "Dynamic map of secrets to expose as env variables"
-}
-
 ###############################################
 # ----- UT Workers Customer Parameters ------ #
 ###############################################
@@ -183,8 +175,4 @@ variable "worker_customer_registry_uri" {
 variable "ut_workers_customer_desired_count" {
   description = "Define the default number of workers-customer container"
   default     = 2
-}
-
-variable "worker_customer_manual_env_variables" {
-  description = "Dynamic map of secrets to expose as env variables"
 }

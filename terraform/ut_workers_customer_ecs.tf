@@ -3,30 +3,17 @@
 #######
 resource "aws_ecs_service" "workers_customer_service" {
   name                   = "ut-workers-customer-service"
-  cluster                = aws_ecs_cluster.ecs_cluster.id
+  cluster                = aws_ecs_cluster.ut_cluster.id
   task_definition        = aws_ecs_task_definition.workers_customer.arn
   launch_type            = "FARGATE"
   desired_count          = var.ut_workers_customer_desired_count
   enable_execute_command = true
 
   network_configuration {
-    subnets          = data.aws_subnets.private.ids
+    subnets          = var.private_subnets_ids
     security_groups  = [aws_security_group.workers_customer_sg.id]
     assign_public_ip = false
   }
-}
-
-locals {
-  ut_worker_customer_manual_variable = [
-    for key, value in var.worker_customer_manual_env_variables : {
-      name      = key
-      valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}${value}"
-    }
-  ]
-
-  ut_workers_customer_global_secrets = local.ut_worker_customer_manual_variable
-
-  ut_workers_customer_task_secret = local.ut_workers_customer_global_secrets
 }
 
 resource "aws_ecs_task_definition" "workers_customer" {
@@ -78,7 +65,88 @@ resource "aws_ecs_task_definition" "workers_customer" {
       repositoryCredentials = {
         credentialsParameter = "${aws_secretsmanager_secret.github_container_registry_crdentials.arn}"
       },
-      secrets   = local.ut_workers_customer_task_secret,
+      secrets = [
+        {
+          name      = "REDIS_HOST",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret_automation.arn}:REDIS_HOST::"
+        },
+        {
+          name      = "UT_USERS_DATA_BUCKET",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret_automation.arn}:UT_USERS_DATA_BUCKET::"
+        },
+        {
+          name      = "MONGODB_DATABASE",
+          valueFrom = "${aws_secretsmanager_secret.ut_mongodb_password.arn}:MONGODB_DATABASE::"
+        },
+        {
+          name      = "MONGODB_HOST",
+          valueFrom = "${aws_secretsmanager_secret.ut_mongodb_password.arn}:MONGODB_HOST::"
+        },
+        {
+          name      = "MONGODB_PASSWORD",
+          valueFrom = "${aws_secretsmanager_secret.ut_mongodb_password.arn}:MONGODB_PASSWORD::"
+        },
+        {
+          name      = "MONGODB_PORT",
+          valueFrom = "${aws_secretsmanager_secret.ut_mongodb_password.arn}:MONGODB_PORT::"
+        },
+        {
+          name      = "MONGODB_USERNAME",
+          valueFrom = "${aws_secretsmanager_secret.ut_mongodb_password.arn}:MONGODB_USERNAME::"
+        },
+        {
+          name      = "GPU_VM_API_TOKEN",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:GPU_VM_API_TOKEN::"
+        },
+        {
+          name      = "GPU_VM_URL",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret_automation.arn}:LLM_ALB_HOST::"
+        },
+        {
+          name      = "MICROSOFT_AUTHORITY",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:MICROSOFT_AUTHORITY::"
+        },
+        {
+          name      = "MICROSOFT_CLIENT_ID",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:MICROSOFT_CLIENT_ID::"
+        },
+        {
+          name      = "MICROSOFT_CLIENT_SECRET",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:MICROSOFT_CLIENT_SECRET::"
+        },
+        {
+          name      = "GOOGLE_CLIENT_ID",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:GOOGLE_CLIENT_ID::"
+        },
+        {
+          name      = "GOOGLE_CLIENT_SECRET",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:GOOGLE_CLIENT_SECRET::"
+        },
+        {
+          name      = "ZOHO_AUTH_URL",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:ZOHO_AUTH_URL::"
+        },
+        {
+          name      = "ZOHO_CLIENT_ID",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:ZOHO_CLIENT_ID::"
+        },
+        {
+          name      = "ZOHO_CLIENT_SECRET",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:ZOHO_CLIENT_SECRET::"
+        },
+        {
+          name      = "ZOHO_TOKEN_URL",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:ZOHO_TOKEN_URL::"
+        },
+        {
+          name      = "DOMAIN_URL",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret_automation.arn}:DOMAIN_URL::"
+        },
+        {
+          name      = "S3_REGION",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret_automation.arn}:S3_REGION::"
+        }
+      ]
       essential = true,
 
     }
@@ -91,13 +159,13 @@ resource "aws_ecs_task_definition" "workers_customer" {
 resource "aws_security_group" "workers_customer_sg" {
   name        = "workers-customer-sg"
   description = "Controls access to ut-workers-customer"
-  vpc_id      = data.aws_vpc.current-vpc.id
+  vpc_id      = var.vpc_id
 }
 
 resource "aws_security_group_rule" "workers_customer_egress_rule" {
   type        = "egress"
   from_port   = 0
-  to_port     = 0
+  to_port     = 65535
   protocol    = "tcp"
   description = "Allow outbound on tcp"
 
