@@ -196,6 +196,10 @@ resource "aws_ecs_task_definition" "ut_api" {
         {
           name      = "S3_REGION",
           valueFrom = "${aws_secretsmanager_secret.ut_api_secret_automation.arn}:S3_REGION::"
+        },
+        {
+          name      = "BACKEND_URL",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret_automation.arn}:BACKEND_URL::"
         }
       ],
       essential = true
