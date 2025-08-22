@@ -164,10 +164,6 @@ variable "ut_listen_port" {
   default     = 8501
 }
 
-variable "ut_api_manual_env_variables" {
-  description = "Dynamic map of secrets to expose as env variables"
-}
-
 ###############################################
 # ----- UT Workers Customer Parameters ------ #
 ###############################################
