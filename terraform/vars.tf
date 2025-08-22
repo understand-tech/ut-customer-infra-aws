@@ -169,7 +169,7 @@ variable "ut_listen_port" {
 ###############################################
 variable "worker_customer_registry_uri" {
   description = "URI used to download UT Worker docker image"
-  default     = "ghcr.io/understand-tech/ut-worker:latest"
+  default     = "ghcr.io/understand-tech/ut-worker-rest-customer:latest"
 }
 
 variable "ut_workers_customer_desired_count" {
