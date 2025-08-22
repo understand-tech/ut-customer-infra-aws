@@ -3,7 +3,7 @@
 #######
 resource "aws_ecs_service" "ut_api_customer_service" {
   name                   = "ut-api-customer-service"
-  cluster                = aws_ecs_cluster.ecs_cluster.id
+  cluster                = aws_ecs_cluster.ut_cluster.id
   task_definition        = aws_ecs_task_definition.ut_api_customer.arn
   launch_type            = "FARGATE"
   desired_count          = var.ut_api_customer_desired_count

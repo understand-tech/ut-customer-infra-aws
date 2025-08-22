@@ -11,11 +11,6 @@ resource "aws_lb" "public_api_custom_alb" {
 
   enable_deletion_protection = true
   idle_timeout               = 120
-
-  access_logs {
-    bucket  = aws_s3_bucket.alb_logs.id
-    enabled = true
-  }
 }
 
 # resource "aws_lb_listener" "ut_https_api_custom_redirect" {
