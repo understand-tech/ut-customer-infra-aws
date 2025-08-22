@@ -7,7 +7,7 @@ resource "aws_lb" "public_api_custom_alb" {
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.public_api_custom_alb_sg.id]
-  subnets            = var.private_subnets_ids
+  subnets            = var.public_subnets_ids
 
   enable_deletion_protection = true
   idle_timeout               = 120
