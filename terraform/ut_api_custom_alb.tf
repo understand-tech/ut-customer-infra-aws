@@ -7,7 +7,7 @@ resource "aws_lb" "public_api_custom_alb" {
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.public_api_custom_alb_sg.id]
-  subnets            = data.aws_subnets.public.ids
+  subnets            = var.private_subnets_ids
 
   enable_deletion_protection = true
   idle_timeout               = 120
@@ -62,7 +62,7 @@ resource "aws_lb_target_group" "ut_api_custom_target_group" {
   port        = var.ut_listen_port
   protocol    = "HTTP"
   target_type = "ip"
-  vpc_id      = data.aws_vpc.current-vpc.id
+  vpc_id      = var.vpc_id
 
   health_check {
     interval            = 30
@@ -82,7 +82,7 @@ resource "aws_lb_target_group" "ut_api_custom_target_group" {
 resource "aws_security_group" "public_api_custom_alb_sg" {
   description = "Controls access to the ut customer ALB"
 
-  vpc_id = data.aws_vpc.current-vpc.id
+  vpc_id = var.vpc_id
   name   = "app-ut-custom-alb"
 }
 

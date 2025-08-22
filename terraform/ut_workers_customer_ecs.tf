@@ -10,7 +10,7 @@ resource "aws_ecs_service" "workers_customer_service" {
   enable_execute_command = true
 
   network_configuration {
-    subnets          = data.aws_subnets.private.ids
+    subnets          = var.private_subnets_ids
     security_groups  = [aws_security_group.workers_customer_sg.id]
     assign_public_ip = false
   }
@@ -259,7 +259,7 @@ resource "aws_ecs_task_definition" "workers_customer" {
 resource "aws_security_group" "workers_customer_sg" {
   name        = "workers-customer-sg"
   description = "Controls access to ut-workers-customer"
-  vpc_id      = data.aws_vpc.current-vpc.id
+  vpc_id      = var.vpc_id
 }
 
 resource "aws_security_group_rule" "workers_customer_egress_rule" {

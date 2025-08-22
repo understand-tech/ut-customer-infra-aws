@@ -16,7 +16,7 @@ resource "aws_ecs_service" "ut_api_customer_service" {
   }
 
   network_configuration {
-    subnets          = data.aws_subnets.private.ids
+    subnets          = var.private_subnets_ids
     security_groups  = [aws_security_group.ut_api_customer_sg.id]
     assign_public_ip = false
   }
@@ -265,7 +265,7 @@ resource "aws_ecs_task_definition" "ut_api_customer" {
 resource "aws_security_group" "ut_api_customer_sg" {
   name        = "ut-api-customer-sg"
   description = "Controls access to ut api"
-  vpc_id      = data.aws_vpc.current-vpc.id
+  vpc_id      = var.vpc_id
 }
 
 resource "aws_security_group_rule" "alb_to_ut_customer_rule" {
