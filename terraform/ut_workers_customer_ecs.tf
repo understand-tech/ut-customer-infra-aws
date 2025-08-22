@@ -115,6 +115,26 @@ resource "aws_ecs_task_definition" "workers_customer" {
           valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:MICROSOFT_AUTHORITY::"
         },
         {
+          name      = "MONGODB_DATABASE",
+          valueFrom = "${aws_secretsmanager_secret.ut_mongodb_password.arn}:MONGODB_DATABASE::"
+        },
+        {
+          name      = "MONGODB_HOST",
+          valueFrom = "${aws_secretsmanager_secret.ut_mongodb_password.arn}:MONGODB_HOST::"
+        },
+        {
+          name      = "MONGODB_PASSWORD",
+          valueFrom = "${aws_secretsmanager_secret.ut_mongodb_password.arn}:MONGODB_PASSWORD::"
+        },
+        {
+          name      = "MONGODB_PORT",
+          valueFrom = "${aws_secretsmanager_secret.ut_mongodb_password.arn}:MONGODB_PORT::"
+        },
+        {
+          name      = "MONGODB_USERNAME",
+          valueFrom = "${aws_secretsmanager_secret.ut_mongodb_password.arn}:MONGODB_USERNAME::"
+        },
+        {
           name      = "GOOGLE_CLIENT_ID",
           valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:GOOGLE_CLIENT_ID::"
         },
