@@ -176,7 +176,3 @@ variable "ut_workers_customer_desired_count" {
   description = "Define the default number of workers-customer container"
   default     = 2
 }
-
-variable "worker_customer_manual_env_variables" {
-  description = "Dynamic map of secrets to expose as env variables"
-}
