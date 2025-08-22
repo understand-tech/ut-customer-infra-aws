@@ -178,7 +178,7 @@ AWS ECS Service must be able to access this registry; ensure GitHub credentials 
 
 | Parameter | Value|
 |-----------|------|
-| Docker image | ghcr.io/understand-tech/ut-frontend-customer:1.0.2-release |
+| Docker image | ghcr.io/understand-tech/ut-frontend-customer:1.0.3-release |
 | vCPU | 0.256 |
 | Memory | 512 Mo |
 | TCP port | 80 |
@@ -237,21 +237,25 @@ AWS ECS Service must be able to access this registry; ensure GitHub credentials 
 
 | Parameter | Value|
 |-----------|------|
-| Docker image | ghcr.io/understand-tech/ut-api-rest-customer:latest |
+| Docker image | ghcr.io/understand-tech/ut-api-rest-customer:1.0.0-release |
 | vCPU | 4 |
 | Memory | 8 Go |
 | TCP port | 8501 |
 | Storage* | 10 Go |
 
+\* The storage is shared with above UT-Worker-CUSTOMER containers
+
 #### UT-Worker-CUSTOMER
 
 | Parameter | Value|
 |-----------|------|
-| Docker image | ghcr.io/understand-tech/ut-worker-rest-customer:latest |
+| Docker image | ghcr.io/understand-tech/ut-worker-rest-customer:1.0.0-release |
 | vCPU | 4 |
 | Memory | 8 Go |
 | TCP port | N/A |
 | Storage* | 10 Go |
+
+\* The storage is shared with above UT-API-CUSTOMER containers
 
 #### REDIS
 
