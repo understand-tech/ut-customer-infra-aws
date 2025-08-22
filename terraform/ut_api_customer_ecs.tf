@@ -74,40 +74,40 @@ resource "aws_ecs_task_definition" "ut_api_customer" {
       ],
       secrets = [
         {
+          name      = "ADMIN_MAIL",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:ADMIN_MAIL::"
+        },
+        {
+          name      = "expected_issuer",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:expected_issuer::"
+        },
+        {
+          name      = "GOOGLE_CLIENT_ID",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:GOOGLE_CLIENT_ID::"
+        },
+        {
+          name      = "GOOGLE_CLIENT_SECRET",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:GOOGLE_CLIENT_SECRET::"
+        },
+        {
           name      = "GPU_VM_API_TOKEN",
           valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:GPU_VM_API_TOKEN::"
         },
         {
-          name      = "DEEPSEEK_API_KEY",
-          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:DEEPSEEK_API_KEY::"
+          name      = "GPU_VM_URL",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret_automation.arn}:LLM_ALB_HOST::"
         },
         {
-          name      = "XAI_API_KEY",
-          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:XAI_API_KEY::"
+          name      = "DOMAIN_URL",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret_automation.arn}:DOMAIN_URL::"
         },
         {
-          name      = "PERPLEXITY_API_KEY",
-          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:PERPLEXITY_API_KEY::"
+          name      = "jwks_endpoint",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:jwks_endpoint::"
         },
         {
-          name      = "OA_KEY",
-          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:OA_KEY::"
-        },
-        {
-          name      = "UT_KEY",
-          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:UT_KEY::"
-        },
-        {
-          name      = "MISTRAL_API_KEY",
-          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:MISTRAL_API_KEY::"
-        },
-        {
-          name      = "CLAUDE_API_KEY",
-          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:OA_KEY::"
-        },
-        {
-          name      = "GOOGLE_API_KEY",
-          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:GOOGLE_API_KEY::"
+          name      = "MICROSOFT_AUTHORITY",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:MICROSOFT_AUTHORITY::"
         },
         {
           name      = "MICROSOFT_CLIENT_ID",
@@ -116,10 +116,6 @@ resource "aws_ecs_task_definition" "ut_api_customer" {
         {
           name      = "MICROSOFT_CLIENT_SECRET",
           valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:MICROSOFT_CLIENT_SECRET::"
-        },
-        {
-          name      = "MICROSOFT_AUTHORITY",
-          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:MICROSOFT_AUTHORITY::"
         },
         {
           name      = "MONGODB_DATABASE",
@@ -142,28 +138,32 @@ resource "aws_ecs_task_definition" "ut_api_customer" {
           valueFrom = "${aws_secretsmanager_secret.ut_mongodb_password.arn}:MONGODB_USERNAME::"
         },
         {
-          name      = "GOOGLE_CLIENT_ID",
-          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:GOOGLE_CLIENT_ID::"
+          name      = "OPENID_CLIENT_ID",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:OPENID_CLIENT_ID::"
         },
         {
-          name      = "GOOGLE_CLIENT_SECRET",
-          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:GOOGLE_CLIENT_SECRET::"
+          name      = "OPENID_CLIENT_SECRET",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:OPENID_CLIENT_SECRET::"
         },
         {
-          name      = "ZOHO_CLIENT_ID",
-          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:ZOHO_CLIENT_ID::"
+          name      = "OPENID_FRONTEND_REDIRECT_URI",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:OPENID_FRONTEND_REDIRECT_URI::"
         },
         {
-          name      = "ZOHO_CLIENT_SECRET",
-          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:ZOHO_CLIENT_SECRET::"
+          name      = "OPENID_SECRET_KEY",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:OPENID_SECRET_KEY::"
         },
         {
-          name      = "ZOHO_AUTH_URL",
-          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:ZOHO_AUTH_URL::"
+          name      = "openid_scope",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:openid_scope::"
         },
         {
-          name      = "ZOHO_TOKEN_URL",
-          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:ZOHO_TOKEN_URL::"
+          name      = "REDIS_HOST",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret_automation.arn}:REDIS_HOST::"
+        },
+        {
+          name      = "SENDGRID_API_KEY",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:SENDGRID_API_KEY::"
         },
         {
           name      = "server_metadata_url",
@@ -174,104 +174,28 @@ resource "aws_ecs_task_definition" "ut_api_customer" {
           valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:token_endpoint::"
         },
         {
-          name      = "jwks_endpoint",
-          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:jwks_endpoint::"
+          name      = "UT_USERS_DATA_BUCKET",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret_automation.arn}:UT_USERS_DATA_BUCKET::"
         },
         {
-          name      = "expected_issuer",
-          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:expected_issuer::"
+          name      = "ZOHO_AUTH_URL",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:ZOHO_AUTH_URL::"
         },
         {
-          name      = "openid_scope",
-          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:openid_scope::"
+          name      = "ZOHO_CLIENT_ID",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:ZOHO_CLIENT_ID::"
         },
         {
-          name      = "OPENID_FRONTEND_REDIRECT_URI",
-          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:OPENID_FRONTEND_REDIRECT_URI::"
+          name      = "ZOHO_CLIENT_SECRET",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:ZOHO_CLIENT_SECRET::"
         },
         {
-          name      = "ADMIN_MAIL",
-          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:ADMIN_MAIL::"
+          name      = "ZOHO_TOKEN_URL",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:ZOHO_TOKEN_URL::"
         },
         {
-          name      = "OPENID_CLIENT_ID",
-          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:OPENID_CLIENT_ID::"
-        },
-        {
-          name      = "OPENID_CLIENT_SECRET",
-          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:OPENID_CLIENT_SECRET::"
-        },
-        {
-          name      = "OPENID_SECRET_KEY",
-          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:OPENID_SECRET_KEY::"
-        },
-        {
-          name      = "storageBucket",
-          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:storageBucket::"
-        },
-        {
-          name      = "databaseURL",
-          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:databaseURL::"
-        },
-        {
-          name      = "apiKey",
-          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:apiKey::"
-        },
-        {
-          name      = "authDomain",
-          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:authDomain::"
-        },
-        {
-          name      = "projectId",
-          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:projectId::"
-        },
-        {
-          name      = "messagingSenderId",
-          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:messagingSenderId::"
-        },
-        {
-          name      = "appId",
-          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:appId::"
-        },
-        {
-          name      = "measurementId",
-          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:measurementId::"
-        },
-        {
-          name      = "stripe_price_new_team_test",
-          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:stripe_price_new_team_test::"
-        },
-        {
-          name      = "stripe_price_new_enterprise_test",
-          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:stripe_price_new_enterprise_test::"
-        },
-        {
-          name      = "stripe_price_premium_test",
-          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:stripe_price_premium_test::"
-        },
-        {
-          name      = "stripe_price_team_test",
-          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:stripe_price_team_test::"
-        },
-        {
-          name      = "stripe_price_team_plus_test",
-          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:stripe_price_team_plus_test::"
-        },
-        {
-          name      = "stripe_price_enterprise",
-          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:stripe_price_enterprise::"
-        },
-        {
-          name      = "stripe_url",
-          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:stripe_url::"
-        },
-        {
-          name      = "stripe_api_key",
-          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:stripe_api_key::"
-        },
-        {
-          name      = "serviceAccountKey",
-          valueFrom = "${aws_secretsmanager_secret.ut_api_secret.arn}:serviceAccountKey::"
+          name      = "S3_REGION",
+          valueFrom = "${aws_secretsmanager_secret.ut_api_secret_automation.arn}:S3_REGION::"
         }
       ]
       essential = true
