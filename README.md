@@ -17,22 +17,22 @@ To deploy UT Platform on your AWS account you need:
 - **AWS Account Requirements:**
     - A VPC
     - Public and private subnets for each availability zone you want to use
-    - Private subnets should have access to internet (With Nat Gateway for example) to be able to download docker images
+    - Private subnets should have access to internet (With NAT Gateway for example) to be able to download docker images
     - A deployment IAM role that can be assumed by yourself or your pipeline
     - An admin role that will be grantted access on AWS SecretsManager secrets
-    - An ACM certificat for the cloudfront distribution
-    - Custom alternate domain names for the CloudFront distribution
+    - An ACM certificate for the cloudfront distribution (optional)
+    - Custom alternate domain names for the CloudFront distribution (optional)
 
-**NOTE:** ACM certificat **must** be provisionned in N. Virginia (us-east-1) AWS region.
+**NOTE:** ACM certificate **must** be provisioned in N. Virginia (us-east-1) AWS region.
 
-**NOTE:** GitHub credentials for docker images are provided by UnderstandTech team.
+**NOTE:** GitHub credentials for the Docker images are provided by the UnderstandTech team.
 
 ### Deployment Steps
 
-1. **Configure Terraform Variables:** Populate values in the vars.tf file.
+1. **Configure Terraform Variables:** Populate values in the terraform.tfvars file.
 2. **Initialize Terraform:** Run ``terraform init`` from inside the ``terraform`` directory.
-3. **Plan Deployment:** Run ``terraform plan`` to visualize ressources to be deployed.
-4. **Apply Deployment:** Run ``terraform apply`` to deploy the ressources.
+3. **Plan Deployment:** Run ``terraform plan`` to visualize resources to be deployed.
+4. **Apply Deployment:** Run ``terraform apply`` to deploy the resources.
 5. **Configure DNS:** Create a DNS CNAME or Alias record over the Cloudfront distribution domain in your DNS service.
 6. **AWS SecretsManager Setup:** Acces the AWS SecretsManager service on your account.
     - **GitHub Credentials:** Find the ``ut-github-container-registry-credentials`` secret and set it's value (replace placeholder values):
@@ -40,7 +40,7 @@ To deploy UT Platform on your AWS account you need:
     ```json
     {
         "username":"your_username",
-        "password":"your_password"
+        "password":"your_github_pat"
     }
     ```
 
@@ -49,16 +49,6 @@ To deploy UT Platform on your AWS account you need:
     ```json
     {
         "GPU_VM_API_TOKEN":"your_value",
-        "SENDGRID_API_KEY":"your_value",
-        "MICROSOFT_CLIENT_ID":"your_value",
-        "MICROSOFT_CLIENT_SECRET":"your_value",
-        "MICROSOFT_AUTHORITY":"your_value",
-        "GOOGLE_CLIENT_ID":"your_value",
-        "GOOGLE_CLIENT_SECRET":"your_value",
-        "ZOHO_CLIENT_ID":"your_value",
-        "ZOHO_CLIENT_SECRET":"your_value",
-        "ZOHO_AUTH_URL":"your_value",
-        "ZOHO_TOKEN_URL":"your_value",
         "ADMIN_MAIL":"your_value",
         "OPENID_CLIENT_ID":"your_value",
         "OPENID_CLIENT_SECRET":"your_value",
@@ -80,7 +70,7 @@ To deploy UT Platform on your AWS account you need:
     }
     ```
 
-### Mandatory Parameters
+### Mandatory Parameters (Value required)
 
 | Parameter                     | Required | Usage                                                                                 | Default value |
 |------------------------------|----------|---------------------------------------------------------------------------------------|---------------|
@@ -102,22 +92,55 @@ To deploy UT Platform on your AWS account you need:
 | EMBED_MODEL_NAME             | Yes      | File name of the downloaded embedding model                                           | nomic-embed-text-v1.5.f32.gguf |
 | RERANKER_HF_PATH             | Yes      | Hugging Face model path used for reranking search results in RAG                      | BAAI/bge-reranker-v2-m3 |
 | RERANKER_MODEL_NAME          | Yes      | Local identifier used in backend code to load the reranker model                      | bge-reranker-v2-m3 |
+| URL_API_REST                 | Yes      | URL to access API docs                                                                |                |
 
-### Optional Parameters
+### Optional Parameters (To be added to secret manager but the secret value can remain empty)
 
 | Parameter              | Required | Usage                                                               | Default value |
 |-----------------------|----------|---------------------------------------------------------------------|---------------|
-| SENDGRID_API_KEY      | No       | Used to send notification emails via SendGrid (share model, invite user) |           |
+| SENDGRID_API_KEY      | No       | Used to send notification emails via SendGrid (share model, invite user) |          |
 | ADMIN_MAIL            | No       | Email address used as sender in SendGrid-based emails               |               |
 | MICROSOFT_CLIENT_ID   | No       | OAuth client ID for accessing SharePoint/OneDrive documents         |               |
 | MICROSOFT_CLIENT_SECRET | No     | OAuth client secret for accessing SharePoint/OneDrive               |               |
-| MICROSOFT_AUTHORITY   | No       | OAuth authority URL (e.g., `https://login.microsoftonline.com/common`) |           |
+| MICROSOFT_AUTHORITY   | No       | OAuth authority URL (e.g., `https://login.microsoftonline.com/common`) |            |
 | GOOGLE_CLIENT_ID      | No       | OAuth client ID for accessing Google Drive documents                |               |
 | GOOGLE_CLIENT_SECRET  | No       | OAuth client secret for Google Drive integration                    |               |
 | ZOHO_CLIENT_ID        | No       | OAuth client ID for Zoho CRM integration                            |               |
 | ZOHO_CLIENT_SECRET    | No       | OAuth client secret for Zoho CRM                                    |               |
 | ZOHO_AUTH_URL         | No       | Zoho OAuth authorization URL                                        |               |
-| ZOHO_TOKEN_URL        | No       | Zoho OAuth token exchange URL         
+| ZOHO_TOKEN_URL        | No       | Zoho OAuth token exchange URL                                       |               |
+| DEEPSEEK_API_KEY      | No       | API key for Deepseek                                                |               |
+| XAI_API_KEY           | No       | API key for xAI (Grok)                                              |               |
+| PERPLEXITY_API_KEY    | No       | API key for Perplexity                                              |               |
+| OA_KEY                | No       | API key for OpenAI                                                  |               |
+| MISTRAL_API_KEY       | No       | API key for Mistral                                                 |               |
+| CLAUDE_API_KEY        | No       | API key for Anthropic                                               |               |
+| GOOGLE_API_KEY        | No       | API key for Google Gemini                                           |               |
+| AZURE_SQL_DATABASE    | No       | Leave empty                                        |               |
+| AZURE_SQL_USERNAME    | No       | Leave empty                                        |               |
+| UT_KEY                | No       | Leave empty                                        |               |
+| AZURE_SQL_PASSWORD    | No       | Leave empty                                        |               |
+| AZURE_SQL_SERVER      | No       | Leave empty                                        |               |
+| FRONTEND_URL_AUTH     | No       | Leave empty                                        |               |
+| BACKEND_URL           | No       | Leave empty                                        |               |
+| S3_REGION             | No       | Leave empty                                        |               |
+|databaseURL            | No       | Leave empty                                        |               |
+|apiKey                 | No       | Leave empty                                        |               |
+|authDomain             | No       | Leave empty                                        |               |
+|projectId              | No       | Leave empty                                        |               |
+|messagingSenderId      | No       | Leave empty                                        |               |
+|appId                  | No       | Leave empty                                        |               |
+|measurementId          | No       | Leave empty                                        |               |
+|stripe_price_new_team_test| No       | Leave empty                                     |               |
+|stripe_price_new_enterprise_test| No       | Leave empty                               |               |
+|stripe_price_premium_test| No       | Leave empty                                      |               |
+|stripe_price_team_test | No       | Leave empty                                        |               |
+|stripe_price_team_plus_test| No       | Leave empty                                    |               |
+|stripe_price_enterprise| No       | Leave empty                                        |               |
+|stripe_url             | No       | Leave empty                                        |               |
+|stripe_api_key         | No       | Leave empty                                        |               |
+|serviceAccountKey      | No       | Leave empty                                        |               |
+|storageBucket          | No       | Leave empty                                        |               |
 
 ### OpenID provider configuration
 
@@ -141,7 +164,7 @@ When `enable_cognito = true` in `terraform.tfvars`, the Terraform deployment aut
 
 ## Security improvement
 
-Public endpoint are actually exposed on HTTP. We strongly recommand to add an https listener (https://docs.aws.amazon.com/elasticloadbalancing/latest/application/create-https-listener.html).
+Public endpoint are actually exposed on HTTP. We strongly recommend adding an HTTPS listener. (https://docs.aws.amazon.com/elasticloadbalancing/latest/application/create-https-listener.html).
 
 
 ## Configuration Details
@@ -239,7 +262,7 @@ AWS ECS Service must be able to access this registry; ensure GitHub credentials 
 
 ### Deployment IAM role
 The Terraform setup requires an IAM role to deploy infrastructure on AWS. This role will be added to AWS SecretsManager secrets's policy to manage secrets.  
-Ensure AWS credentials, capable of assuming this deployment role, are set up. Credentials can be passed via environment variables or directly in ``terraform/providers.tf``.
+Ensure AWS credentials, capable of assuming this deployment role, are set up. Credentials (Access keys) can be passed via environment variables or directly in ``terraform/providers.tf``.
 
 Required permissions for deploying the UT Platform include the following services :
 | Service | IAM namespace | Permissions |
