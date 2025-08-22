@@ -45,7 +45,7 @@ resource "aws_ecs_task_definition" "ut_frontend" {
           awslogs-stream-prefix = "ecs"
         }
       },
-      environment = [
+      secrets = [
         {
           name      = "DOMAIN_URL",
           valueFrom = "${aws_secretsmanager_secret.ut_api_secret_automation.arn}:DOMAIN_URL::"
