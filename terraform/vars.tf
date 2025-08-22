@@ -133,7 +133,7 @@ variable "enable_cognito" {
 ######################################
 variable "ut_api_customer_registry_uri" {
   description = "URI used to download UT API CUSTOMER docker image"
-  default     = "ghcr.io/understand-tech/ut-api-custom:latest"
+  default     = "ghcr.io/understand-tech/ut-api-rest-customer:latest"
 }
 
 variable "ut_api_customer_desired_count" {
@@ -151,7 +151,7 @@ variable "ut_api_customer_listen_port" {
 ##################################
 variable "ut_api_registry_uri" {
   description = "URI used to download UT API docker image"
-  default     = "ghcr.io/understand-tech/ut-api:latest"
+  default     = "ghcr.io/understand-tech/ut-api-customer:1.0.3-release"
 }
 
 variable "ut_desired_count" {
