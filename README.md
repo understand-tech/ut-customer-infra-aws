@@ -31,8 +31,8 @@ To deploy UT Platform on your AWS account you need:
 
 1. **Configure Terraform Variables:** Populate values in the terraform.tfvars file.
 2. **Initialize Terraform:** Run ``terraform init`` from inside the ``terraform`` directory.
-3. **Plan Deployment:** Run ``terraform plan`` to visualize ressources to be deployed.
-4. **Apply Deployment:** Run ``terraform apply`` to deploy the ressources.
+3. **Plan Deployment:** Run ``terraform plan`` to visualize resources to be deployed.
+4. **Apply Deployment:** Run ``terraform apply`` to deploy the resources.
 5. **Configure DNS:** Create a DNS CNAME or Alias record over the Cloudfront distribution domain in your DNS service.
 6. **AWS SecretsManager Setup:** Acces the AWS SecretsManager service on your account.
     - **GitHub Credentials:** Find the ``ut-github-container-registry-credentials`` secret and set it's value (replace placeholder values):
@@ -94,7 +94,7 @@ To deploy UT Platform on your AWS account you need:
 | RERANKER_MODEL_NAME          | Yes      | Local identifier used in backend code to load the reranker model                      | bge-reranker-v2-m3 |
 | URL_API_REST                 | Yes      | URL to access API docs                                                                |                |
 
-### Optional Parameters (To be added to secret manager but the secret valuecan remain empty)
+### Optional Parameters (To be added to secret manager but the secret value can remain empty)
 
 | Parameter              | Required | Usage                                                               | Default value |
 |-----------------------|----------|---------------------------------------------------------------------|---------------|
