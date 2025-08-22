@@ -106,7 +106,7 @@ resource "aws_security_group_rule" "alb_https_inbound_from_internet" {
 resource "aws_security_group_rule" "public_alb_sg_egress" {
   type              = "egress"
   from_port         = 0
-  to_port           = 0
+  to_port           = 65535
   protocol          = "tcp"
   cidr_blocks       = ["0.0.0.0/0"]
   description       = "Allow outbound on tcp"
