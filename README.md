@@ -2,7 +2,7 @@
 
 This repository contains the Terraform codebase to provision and manage the infrastructure for the UT Platform on AWS.
 
-![UT Platform Architecture](./docs/ut-aws-architecture.png)
+![UT Platform Architecture](./docs/aws-github-ut.png)
 
 ## Getting started
 
