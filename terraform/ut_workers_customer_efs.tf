@@ -4,6 +4,7 @@
 resource "aws_efs_file_system" "workers_customer_file_system" {
   #checkov:skip=CKV_AWS_184:KMS should be handle by the final customer
   creation_token = "workers-customer-efs"
+  encrypted = true
 
   tags = {
     Name = "workers-customer-efs"
