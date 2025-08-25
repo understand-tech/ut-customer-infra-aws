@@ -213,5 +213,5 @@ data "aws_iam_policy_document" "ut_frontend_role_exec" {
 ###################
 resource "aws_cloudwatch_log_group" "ut_frontend" {
   name              = "/ecs/ut-frontend"
-  retention_in_days = 30
+  retention_in_days = 365
 }

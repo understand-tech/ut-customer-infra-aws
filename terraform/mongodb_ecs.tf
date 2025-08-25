@@ -230,5 +230,5 @@ data "aws_iam_policy_document" "ut_mongodb_role_exec" {
 ###################
 resource "aws_cloudwatch_log_group" "ut_mongodb" {
   name              = "/ecs/ut-mongodb"
-  retention_in_days = 30
+  retention_in_days = 365
 }

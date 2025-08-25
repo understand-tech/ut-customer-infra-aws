@@ -351,5 +351,5 @@ data "aws_iam_policy_document" "llm_role_exec" {
 ###################
 resource "aws_cloudwatch_log_group" "ut_llm" {
   name              = "/ecs/ut-llm"
-  retention_in_days = 30
+  retention_in_days = 365
 }
