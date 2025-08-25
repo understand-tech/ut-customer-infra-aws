@@ -54,6 +54,7 @@ resource "aws_ecs_task_definition" "workers_customer" {
           readOnly      = false
         }
       ],
+      readonlyRootFilesystem = true,
       logConfiguration = {
         logDriver = "awslogs",
         options = {
