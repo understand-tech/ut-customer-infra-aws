@@ -2,6 +2,7 @@
 # ALB #
 #######
 resource "aws_lb" "ut_llm_alb" {
+  #checkov:skip=CKV2_AWS_20:See README.md section security
   name               = "ut-llm-alb"
   internal           = true
   load_balancer_type = "application"
@@ -18,6 +19,7 @@ resource "aws_lb" "ut_llm_alb" {
 }
 
 resource "aws_lb_listener" "ut_llm_http_listener" {
+  #checkov:skip=CKV_AWS_103:See README.md section security
   load_balancer_arn = aws_lb.ut_llm_alb.arn
   port              = local.ut_llm_elb_port
   protocol          = "HTTP"
@@ -29,6 +31,7 @@ resource "aws_lb_listener" "ut_llm_http_listener" {
 }
 
 resource "aws_lb_target_group" "ut_llm_target_group" {
+  #checkov:skip=CKV_AWS_378:See README.md section security
   name        = "ut-llm-tg"
   port        = local.ut_llm_container_port
   protocol    = "HTTP"

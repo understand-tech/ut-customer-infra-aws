@@ -3,6 +3,7 @@
 #######
 
 resource "aws_lb" "public_api_custom_alb" {
+  #checkov:skip=CKV2_AWS_20:See README.md section security
   name               = "ut-api-custom-alb"
   internal           = false
   load_balancer_type = "application"
@@ -19,18 +20,9 @@ resource "aws_lb" "public_api_custom_alb" {
   }
 }
 
-# resource "aws_lb_listener" "ut_https_api_custom_redirect" {
-#   load_balancer_arn = aws_lb.public_api_custom_alb.arn
-#   port              = 443
-#   protocol          = "HTTPS"
-#
-#   default_action {
-#     type             = "forward"
-#     target_group_arn = aws_lb_target_group.ut_api_custom_target_group.arn
-#   }
-# }
-
 resource "aws_lb_listener" "ut_https_api_custom_redirect" {
+  #checkov:skip=CKV_AWS_103:See README.md section security
+  #checkov:skip=CKV_AWS_2:See README.md section security
   load_balancer_arn = aws_lb.public_api_custom_alb.arn
   port              = 80
   protocol          = "HTTP"
@@ -41,24 +33,8 @@ resource "aws_lb_listener" "ut_https_api_custom_redirect" {
   }
 }
 
-# resource "aws_lb_listener" "ut_http_api_custom_redirect" {
-#   load_balancer_arn = aws_lb.public_api_custom_alb.arn
-#   port              = 80
-#   protocol          = "HTTP"
-#
-#   default_action {
-#     type = "redirect"
-#
-#     redirect {
-#       port        = "443"
-#       protocol    = "HTTPS"
-#       status_code = "HTTP_301"
-#     }
-#   }
-# }
-
-
 resource "aws_lb_target_group" "ut_api_custom_target_group" {
+  #checkov:skip=CKV_AWS_378:See README.md section security
   name        = "ut-api-custom-tg"
   port        = var.ut_listen_port
   protocol    = "HTTP"

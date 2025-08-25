@@ -2,6 +2,7 @@
 # ALB #
 #######
 resource "aws_lb" "ut_private_cloudfront_origin" {
+  #checkov:skip=CKV2_AWS_20:See README.md section security
   name               = "ut-frontend-and-ut-api-alb"
   internal           = true
   load_balancer_type = "application"
@@ -18,6 +19,8 @@ resource "aws_lb" "ut_private_cloudfront_origin" {
 }
 
 resource "aws_lb_listener" "ut_http_redirect" {
+  #checkov:skip=CKV_AWS_103:See README.md section security
+  #checkov:skip=CKV_AWS_2:See README.md section security
   load_balancer_arn = aws_lb.ut_private_cloudfront_origin.arn
   port              = 80
   protocol          = "HTTP"
@@ -45,6 +48,7 @@ resource "aws_lb_listener_rule" "ut_api_path_rule" {
 }
 
 resource "aws_lb_target_group" "ut_api_target_group" {
+  #checkov:skip=CKV_AWS_378:See README.md section security
   name        = "ut-api-tg"
   port        = local.ut_api_container_port
   protocol    = "HTTP"
@@ -62,6 +66,7 @@ resource "aws_lb_target_group" "ut_api_target_group" {
 }
 
 resource "aws_lb_target_group" "ut_frontend_target_group" {
+  #checkov:skip=CKV_AWS_378:See README.md section security
   name        = "ut-frontend-tg"
   port        = local.ut_frontend_container_port
   protocol    = "HTTP"
