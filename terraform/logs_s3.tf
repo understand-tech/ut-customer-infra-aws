@@ -3,7 +3,19 @@
 #############
 resource "aws_s3_bucket" "logs" {
   #checkov:skip=CKV_AWS_145:KMS should be handle by the final customer
+  #checkov:skip=CKV_AWS_18:Final bucket could not have acces enabled
+  #checkov:skip=CKV_AWS_144:Cross region should be handle by the final customer
   bucket = "ut-logs"
+}
+
+resource "aws_s3_bucket_notification" "bucket_notification" {
+  bucket = aws_s3_bucket.logs.id
+
+  topic {
+    topic_arn     = aws_sns_topic.bucket_notifications.arn
+    events        = ["s3:ObjectCreated:*"]
+    filter_prefix = "logs/"
+  }
 }
 
 resource "aws_s3_bucket_public_access_block" "logs_public_access" {

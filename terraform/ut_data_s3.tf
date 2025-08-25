@@ -1,11 +1,23 @@
 resource "aws_s3_bucket" "ut_data_bucket" {
   #checkov:skip=CKV_AWS_145:KMS should be handle by the final customer
+  #checkov:skip=CKV_AWS_144:Cross region should be handle by the final customer
   bucket_prefix = "ut-users-data-"
 
   tags = {
     Name = "ut-users-data"
   }
 }
+
+resource "aws_s3_bucket_notification" "bucket_notification" {
+  bucket = aws_s3_bucket.ut_data_bucket.id
+
+  topic {
+    topic_arn     = aws_sns_topic.bucket_notifications.arn
+    events        = ["s3:ObjectCreated:*"]
+    filter_prefix = "logs/"
+  }
+}
+
 
 resource "aws_s3_bucket_public_access_block" "ut_data_block" {
   bucket = aws_s3_bucket.ut_data_bucket.id
@@ -21,6 +33,13 @@ resource "aws_s3_bucket_versioning" "ut_data_bucket" {
   versioning_configuration {
     status = "Enabled"
   }
+}
+
+resource "aws_s3_bucket_logging" "ut_data_bucket" {
+   bucket = aws_s3_bucket.ut_data_bucket.id
+
+   target_bucket = aws_s3_bucket.logs.id
+   target_prefix = "log/"
 }
 
 resource "aws_s3_bucket_lifecycle_configuration" "ut_data_lifecycle_policy" {
