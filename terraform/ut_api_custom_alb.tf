@@ -10,7 +10,13 @@ resource "aws_lb" "public_api_custom_alb" {
   subnets            = var.public_subnets_ids
 
   enable_deletion_protection = true
+  drop_invalid_header_fields = true
   idle_timeout               = 120
+
+  access_logs {
+    bucket  = aws_s3_bucket.logs.id
+    enabled = true
+  }
 }
 
 # resource "aws_lb_listener" "ut_https_api_custom_redirect" {

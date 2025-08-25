@@ -9,6 +9,12 @@ resource "aws_lb" "ut_llm_alb" {
   subnets            = var.private_subnets_ids
 
   enable_deletion_protection = true
+  drop_invalid_header_fields = true
+
+  access_logs {
+    bucket  = aws_s3_bucket.logs.id
+    enabled = true
+  }
 }
 
 resource "aws_lb_listener" "ut_llm_http_listener" {
