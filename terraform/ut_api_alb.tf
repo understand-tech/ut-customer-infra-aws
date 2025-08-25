@@ -106,9 +106,9 @@ resource "aws_security_group_rule" "ut_alb_http_inbound_from_cloudfront" {
 resource "aws_security_group_rule" "ut_private_alb_sg_egress" {
   type              = "egress"
   from_port         = 0
-  to_port           = 0
-  protocol          = "-1"
-  description       = "Outbound"
+  to_port           = 65535
+  protocol          = "tcp"
+  description       = "Allow outbound on tcp"
   cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = aws_security_group.ut_private_cloudfront_origin_sg.id
 }

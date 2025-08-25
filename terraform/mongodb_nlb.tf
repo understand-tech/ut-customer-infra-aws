@@ -107,8 +107,9 @@ resource "aws_security_group_rule" "ut_llm_to_mongodb_nlb_http_rule" {
 resource "aws_security_group_rule" "ut_mongodb_nlb_sg_egress_rule" {
   type      = "egress"
   from_port = 0
-  to_port   = 0
-  protocol  = "-1"
+  to_port   = 65535
+  protocol  = "tcp"
+  description = "Allow outbound on tcp"
 
   cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = aws_security_group.ut_mongodb_nlb_sg.id
