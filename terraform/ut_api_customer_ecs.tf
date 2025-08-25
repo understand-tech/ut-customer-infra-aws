@@ -29,7 +29,7 @@ resource "aws_ecs_task_definition" "ut_api_customer" {
   memory       = 8192 # 8 GiB
 
   execution_role_arn       = aws_iam_role.ut_api_custom_role.arn
-  task_role_arn            = aws_iam_role.ut_api_custom_role.arn
+  task_role_arn            = aws_iam_role.ut_api_custom_role_task.arn
   requires_compatibilities = ["FARGATE"]
 
   volume {
@@ -246,9 +246,22 @@ resource "aws_iam_role" "ut_api_custom_role" {
   assume_role_policy = data.aws_iam_policy_document.ut_api_custom_role_trust.json
 }
 
+resource "aws_iam_role" "ut_api_custom_role_task" {
+  name = "ut-api-customer-container-task-role"
+  path = "/service-role/fargate/"
+
+  assume_role_policy = data.aws_iam_policy_document.ut_api_custom_role_trust.json
+}
+
 resource "aws_iam_role_policy" "ut_api_custom_role_policy" {
   name   = "ut-api-container-policy"
   role   = aws_iam_role.ut_api_custom_role.id
+  policy = data.aws_iam_policy_document.ut_api_custom_role_exec.json
+}
+
+resource "aws_iam_role_policy" "ut_api_custom_role_policy_task" {
+  name   = "ut-api-container-task-policy"
+  role   = aws_iam_role.ut_api_custom_role_task.id
   policy = data.aws_iam_policy_document.ut_api_custom_role_exec.json
 }
 
