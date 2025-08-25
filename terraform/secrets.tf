@@ -3,12 +3,14 @@
 ###################
 resource "aws_secretsmanager_secret" "ut_api_secret" {
   #checkov:skip=CKV_AWS_149:KMS should be handle by the final customer
+  #checkov:skip=CKV2_AWS_57:Not Need for rotation here
   name   = "ut-api-secret_manual"
   policy = data.aws_iam_policy_document.task_secrets_generic_policy.json
 }
 
 resource "aws_secretsmanager_secret" "ut_api_secret_automation" {
   #checkov:skip=CKV_AWS_149:KMS should be handle by the final customer
+  #checkov:skip=CKV2_AWS_57:Not Need for rotation here
   name   = "ut-api-secret-automation"
   policy = data.aws_iam_policy_document.task_secrets_generic_policy.json
 }
@@ -44,6 +46,7 @@ locals {
 
 resource "aws_secretsmanager_secret" "ut_mongodb_password" {
   #checkov:skip=CKV_AWS_149:KMS should be handle by the final customer
+  #checkov:skip=CKV2_AWS_57:Not Need for rotation here
   name   = "mongodb-password"
   policy = data.aws_iam_policy_document.task_secrets_generic_policy.json
 }

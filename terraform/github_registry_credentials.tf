@@ -3,6 +3,7 @@
 ###################
 resource "aws_secretsmanager_secret" "github_container_registry_crdentials" {
   #checkov:skip=CKV_AWS_149:KMS should be handle by the final customer
+  #checkov:skip=CKV2_AWS_57:Not Need for rotation here
   name        = "ut-github-container-registry-credentials"
   description = "Credentials used by ECS cluster to pull images from UnderstandTech GitHub container registry"
   policy      = data.aws_iam_policy_document.github_container_registry_policy.json
