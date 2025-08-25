@@ -20,6 +20,7 @@ resource "aws_lb" "ut_llm_alb" {
 
 resource "aws_lb_listener" "ut_llm_http_listener" {
   #checkov:skip=CKV_AWS_103:See README.md section security
+  #checkov:skip=CKV_AWS_2:See README.md section security
   load_balancer_arn = aws_lb.ut_llm_alb.arn
   port              = local.ut_llm_elb_port
   protocol          = "HTTP"
