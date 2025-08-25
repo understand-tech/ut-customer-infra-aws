@@ -2,6 +2,7 @@
 # S3 bucket #
 #############
 resource "aws_s3_bucket" "logs" {
+  #checkov:skip=CKV_AWS_145:KMS should be handle by the final customer
   bucket = "ut-logs"
 }
 

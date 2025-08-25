@@ -2,6 +2,7 @@
 # EFS #
 #######
 resource "aws_efs_file_system" "ut_llm_models_file_system" {
+  #checkov:skip=CKV_AWS_184:KMS should be handle by the final customer
   creation_token = "ut-llm-models-efs"
 
   tags = {
@@ -18,6 +19,7 @@ resource "aws_efs_mount_target" "ut_llm_models_efs_mount_target" {
 }
 
 resource "aws_efs_file_system" "ut_llm_ollama_file_system" {
+  #checkov:skip=CKV_AWS_184:KMS should be handle by the final customer
   creation_token = "ut-llm-ollama-efs"
 
   tags = {

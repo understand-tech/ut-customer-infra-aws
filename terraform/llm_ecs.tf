@@ -350,6 +350,7 @@ data "aws_iam_policy_document" "llm_role_exec" {
 # CloudWatch Logs #
 ###################
 resource "aws_cloudwatch_log_group" "ut_llm" {
+  #checkov:skip=CKV_AWS_158:KMS should be handle by the final customer
   name              = "/ecs/ut-llm"
   retention_in_days = 365
 }

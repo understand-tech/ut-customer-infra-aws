@@ -1,4 +1,5 @@
 resource "aws_s3_bucket" "ut_data_bucket" {
+  #checkov:skip=CKV_AWS_145:KMS should be handle by the final customer
   bucket_prefix = "ut-users-data-"
 
   tags = {

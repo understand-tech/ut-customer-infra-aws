@@ -212,6 +212,7 @@ data "aws_iam_policy_document" "ut_frontend_role_exec" {
 # CloudWatch Logs #
 ###################
 resource "aws_cloudwatch_log_group" "ut_frontend" {
+  #checkov:skip=CKV_AWS_158:KMS should be handle by the final customer
   name              = "/ecs/ut-frontend"
   retention_in_days = 365
 }
