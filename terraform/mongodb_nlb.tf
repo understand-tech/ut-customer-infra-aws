@@ -10,6 +10,11 @@ resource "aws_lb" "ut_mongodb" {
 
   enable_cross_zone_load_balancing = true
   enable_deletion_protection       = true
+
+  access_logs {
+    bucket  = aws_s3_bucket.logs.id
+    enabled = true
+  }
 }
 
 resource "aws_lb_listener" "ut_mongodb_listener" {
