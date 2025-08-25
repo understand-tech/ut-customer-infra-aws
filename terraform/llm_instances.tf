@@ -34,6 +34,11 @@ resource "aws_launch_template" "ut_llm_template" {
     enabled = true
   }
 
+  metadata_options {
+    http_endpoint = "enabled"
+    http_tokens = "required"
+  }
+
   user_data = filebase64("${path.module}/scripts/ecs_cluster/ecs_cluster.sh")
 }
 

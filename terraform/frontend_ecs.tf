@@ -30,7 +30,7 @@ resource "aws_ecs_task_definition" "ut_frontend" {
   memory       = 512
 
   execution_role_arn       = aws_iam_role.ut_frontend_container_role.arn
-  task_role_arn            = aws_iam_role.ut_frontend_container_role.arn
+  task_role_arn            = aws_iam_role.ut_frontend_container_role_task.arn
   requires_compatibilities = ["FARGATE"]
 
   container_definitions = jsonencode([
@@ -117,9 +117,22 @@ resource "aws_iam_role" "ut_frontend_container_role" {
   assume_role_policy = data.aws_iam_policy_document.ut_frontend_role_trust.json
 }
 
+resource "aws_iam_role" "ut_frontend_container_role_task" {
+  name = "ut-frontend-container-task-role"
+  path = "/service-role/fargate/"
+
+  assume_role_policy = data.aws_iam_policy_document.ut_frontend_role_trust.json
+}
+
 resource "aws_iam_role_policy" "ut_frontend_role_policy" {
   name   = "ut-frontend-container-policy"
   role   = aws_iam_role.ut_frontend_container_role.id
+  policy = data.aws_iam_policy_document.ut_frontend_role_exec.json
+}
+
+resource "aws_iam_role_policy" "ut_frontend_role_policy_task" {
+  name   = "ut-frontend-container-task-policy"
+  role   = aws_iam_role.ut_frontend_container_role_task.id
   policy = data.aws_iam_policy_document.ut_frontend_role_exec.json
 }
 
@@ -199,6 +212,7 @@ data "aws_iam_policy_document" "ut_frontend_role_exec" {
 # CloudWatch Logs #
 ###################
 resource "aws_cloudwatch_log_group" "ut_frontend" {
+  #checkov:skip=CKV_AWS_158:KMS should be handle by the final customer
   name              = "/ecs/ut-frontend"
-  retention_in_days = 30
+  retention_in_days = 365
 }

@@ -29,7 +29,7 @@ resource "aws_ecs_task_definition" "ut_api" {
   memory       = 8192 # 8 GiB
 
   execution_role_arn       = aws_iam_role.ut_api_container_role.arn
-  task_role_arn            = aws_iam_role.ut_api_container_role.arn
+  task_role_arn            = aws_iam_role.ut_api_container_role_task.arn
   requires_compatibilities = ["FARGATE"]
 
   volume {
@@ -249,9 +249,22 @@ resource "aws_iam_role" "ut_api_container_role" {
   assume_role_policy = data.aws_iam_policy_document.ut_api_role_trust.json
 }
 
+resource "aws_iam_role" "ut_api_container_role_task" {
+  name = "ut-api-container-task-role"
+  path = "/service-role/fargate/"
+
+  assume_role_policy = data.aws_iam_policy_document.ut_api_role_trust.json
+}
+
 resource "aws_iam_role_policy" "ut_api_role_policy" {
   name   = "ut-api-container-policy"
   role   = aws_iam_role.ut_api_container_role.id
+  policy = data.aws_iam_policy_document.ut_api_role_exec.json
+}
+
+resource "aws_iam_role_policy" "ut_api_role_policy_task" {
+  name   = "ut-api-container-task-policy"
+  role   = aws_iam_role.ut_api_container_role_task.id
   policy = data.aws_iam_policy_document.ut_api_role_exec.json
 }
 
@@ -358,6 +371,7 @@ data "aws_iam_policy_document" "ut_api_role_exec" {
 # CloudWatch Logs #
 ###################
 resource "aws_cloudwatch_log_group" "ut_api" {
+  #checkov:skip=CKV_AWS_158:KMS should be handle by the final customer
   name              = "/ecs/ut-api"
-  retention_in_days = 30
+  retention_in_days = 365
 }

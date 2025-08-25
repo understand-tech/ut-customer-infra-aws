@@ -23,7 +23,7 @@ resource "aws_ecs_task_definition" "workers_customer" {
   memory       = 8192 # 8 GiB
 
   execution_role_arn       = aws_iam_role.ut_workers_customer_role.arn
-  task_role_arn            = aws_iam_role.ut_workers_customer_role.arn
+  task_role_arn            = aws_iam_role.ut_workers_customer_role_task.arn
   requires_compatibilities = ["FARGATE"]
 
   volume {
@@ -54,6 +54,7 @@ resource "aws_ecs_task_definition" "workers_customer" {
           readOnly      = false
         }
       ],
+      readonlyRootFilesystem = true,
       logConfiguration = {
         logDriver = "awslogs",
         options = {
@@ -183,9 +184,22 @@ resource "aws_iam_role" "ut_workers_customer_role" {
   assume_role_policy = data.aws_iam_policy_document.workers_customer_role_trust.json
 }
 
+resource "aws_iam_role" "ut_workers_customer_role_task" {
+  name = "ut-workers-customer-container-task-role"
+  path = "/service-role/fargate/"
+
+  assume_role_policy = data.aws_iam_policy_document.workers_customer_role_trust.json
+}
+
 resource "aws_iam_role_policy" "workers_customer_role_policy" {
   name   = "workers-customer-container-policy"
   role   = aws_iam_role.ut_workers_customer_role.id
+  policy = data.aws_iam_policy_document.workers_customer_role_exec.json
+}
+
+resource "aws_iam_role_policy" "workers_customer_role_policy_task" {
+  name   = "workers-customer-container-task-policy"
+  role   = aws_iam_role.ut_workers_customer_role_task.id
   policy = data.aws_iam_policy_document.workers_customer_role_exec.json
 }
 
