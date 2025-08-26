@@ -75,7 +75,7 @@ resource "aws_security_group_rule" "ut_workers_to_llm_alb_rule" {
 resource "aws_security_group_rule" "llm_alb_sg_egress_tcp" {
   type      = "egress"
   from_port = 0
-  to_port   = 0
+  to_port   = 65535
   protocol  = "tcp"
 
   description = "Allow tcp outbound"
