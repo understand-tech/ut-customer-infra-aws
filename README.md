@@ -87,7 +87,7 @@ To deploy UT Platform on your AWS account you need:
 | OLLAMA_MODEL_LLM             | Yes      | HuggingFace path to the main LLM model used for answering user questions              | qwen3:32b-q4_K_M |
 | OLLAMA_MODEL_CONDENSE_LLM    | Yes      | HuggingFace path to the LLM used for query rewriting/context condensation             | qwen3:32b-q4_K_M |
 | OLLAMA_HOST_PORT             | Yes      | Port used by Ollama model server (should match internal LLM container config)         | 11434         |
-| MODELS_DIR                   | Yes      | Filesystem directory path where LLM and embedding models are stored                   | /app/models/  |
+| MODELS_DIR                   | Yes      | Filesystem directory path where LLM and embedding models are stored                   | /root/models/  |
 | EMBED_URL                    | Yes      | URL to download the embedding model used for text vectorization                       | https://huggingface.co/nomic-ai/nomic-embed-text-v1.5-GGUF/resolve/main/nomic-embed-text-v1.5.f32.gguf |
 | EMBED_MODEL_NAME             | Yes      | File name of the downloaded embedding model                                           | nomic-embed-text-v1.5.f32.gguf |
 | RERANKER_HF_PATH             | Yes      | Hugging Face model path used for reranking search results in RAG                      | BAAI/bge-reranker-v2-m3 |
