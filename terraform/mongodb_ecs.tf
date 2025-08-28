@@ -69,12 +69,8 @@ resource "aws_ecs_task_definition" "ut_mongodb" {
           readOnly      = false
         }
       ],
-      readonlyRootFilesystem = true,
+      readonlyRootFilesystem = false,
       environment = [
-        {
-          name = "TMPDIR"
-          value = "/dev/shm"
-        },
         {
           name  = "MONGO_INITDB_ROOT_USERNAME"
           value = "mongoadmin"
