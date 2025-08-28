@@ -20,7 +20,7 @@ data "aws_iam_policy_document" "bucket_notifications" {
       "SNS:Publish"
     ]
     resources = [
-      "arn:aws:sns:*:*:s3-event-notification-topic"
+      "arn:aws:sns:*:*:ut-bucket-notifications"
     ]
 
     condition {
