@@ -45,7 +45,8 @@ resource "aws_ecs_task_definition" "ut_mongodb" {
   }
 
   volume {
-    name = "tmp-storage"
+    name      = "tmp-storage"
+    host_path = "/tmp"
   }
 
   container_definitions = jsonencode([
