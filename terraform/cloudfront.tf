@@ -28,7 +28,7 @@ resource "aws_cloudfront_distribution" "ut_frontend_distribution" {
   aliases = var.cloudfront_alternate_domain_list
 
   logging_config {
-    bucket = aws_s3_bucket.logs.bucket
+    bucket = aws_s3_bucket.logs.bucket_domain_name
   }
 
   origin {
