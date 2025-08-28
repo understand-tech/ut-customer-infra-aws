@@ -8,7 +8,7 @@ resource "aws_s3_bucket" "logs" {
   bucket = "ut-logs"
 }
 
-resource "aws_s3_bucket_notification" "bucket_notification" {
+resource "aws_s3_bucket_notification" "bucket_notification_logs" {
   bucket = aws_s3_bucket.logs.id
   topic {
     topic_arn     = aws_sns_topic.bucket_notifications.arn
