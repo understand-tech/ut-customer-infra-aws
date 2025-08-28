@@ -9,7 +9,7 @@ resource "aws_s3_bucket" "logs" {
   #checkov:skip=CKV_AWS_145:KMS should be handle by the final customer
   #checkov:skip=CKV_AWS_18:Final bucket could not have acces enabled
   #checkov:skip=CKV_AWS_144:Cross region should be handle by the final customer
-  bucket = "ut-logs-${random_id.s3_suffix_random.id}"
+  bucket = "ut-logs-${lower(random_id.s3_suffix_random.id)}"
 }
 
 resource "aws_s3_bucket_notification" "bucket_notification_logs" {
