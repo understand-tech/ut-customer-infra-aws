@@ -8,7 +8,7 @@ resource "aws_s3_bucket" "ut_data_bucket" {
   }
 }
 
-resource "aws_s3_bucket_notification" "bucket_notification" {
+resource "aws_s3_bucket_notification" "bucket_notification_data" {
   bucket = aws_s3_bucket.ut_data_bucket.id
 
   topic {
@@ -36,10 +36,10 @@ resource "aws_s3_bucket_versioning" "ut_data_bucket" {
 }
 
 resource "aws_s3_bucket_logging" "ut_data_bucket" {
-   bucket = aws_s3_bucket.ut_data_bucket.id
+  bucket = aws_s3_bucket.ut_data_bucket.id
 
-   target_bucket = aws_s3_bucket.logs.id
-   target_prefix = "log/"
+  target_bucket = aws_s3_bucket.logs.id
+  target_prefix = "log/"
 }
 
 resource "aws_s3_bucket_lifecycle_configuration" "ut_data_lifecycle_policy" {
