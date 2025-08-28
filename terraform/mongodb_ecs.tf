@@ -44,11 +44,6 @@ resource "aws_ecs_task_definition" "ut_mongodb" {
     }
   }
 
-  volume {
-    name      = "tmp-storage"
-    host_path = "/tmp"
-  }
-
   container_definitions = jsonencode([
     {
       name  = "ut-mongodb",
@@ -72,15 +67,14 @@ resource "aws_ecs_task_definition" "ut_mongodb" {
           sourceVolume  = "mongodb-data"
           containerPath = "/data/db"
           readOnly      = false
-        },
-        {
-          sourceVolume  = "tmp-storage"
-          containerPath = "/tmp"
-          readOnly      = false
         }
       ],
       readonlyRootFilesystem = true,
       environment = [
+        {
+          name = "TMPDIR"
+          value = "/dev/shm"
+        },
         {
           name  = "MONGO_INITDB_ROOT_USERNAME"
           value = "mongoadmin"
