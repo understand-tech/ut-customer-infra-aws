@@ -9,7 +9,7 @@ resource "aws_s3_bucket" "logs" {
   #checkov:skip=CKV_AWS_145:KMS should be handle by the final customer
   #checkov:skip=CKV_AWS_18:Final bucket could not have acces enabled
   #checkov:skip=CKV_AWS_144:Cross region should be handle by the final customer
-  bucket = "ut-logs-${lower(random_id.s3_suffix_random.id)}"
+  bucket = "ut-logs${lower(random_id.s3_suffix_random.id)}"
 }
 
 resource "aws_s3_bucket_notification" "bucket_notification_logs" {
@@ -91,6 +91,21 @@ resource "aws_s3_bucket_versioning" "logs" {
 
 data "aws_iam_policy_document" "logs_policy" {
   statement {
+    sid    = "AllowALB"
+    effect = "Allow"
+    actions = [
+      "s3:PutObject"
+    ]
+    principals {
+      type = "AWS"
+      identifiers = [
+        "arn:aws:iam::${var.aws_account_id}:root"
+      ]
+    }
+    resources = ["arn:aws:s3:::ut-logs${lower(random_id.s3_suffix_random.id)}/AWSLogs/${var.aws_account_id}/*"]
+  }
+
+  statement {
     sid    = "AllowDelivery"
     effect = "Allow"
     actions = [
@@ -103,7 +118,7 @@ data "aws_iam_policy_document" "logs_policy" {
         "delivery.logs.amazonaws.com"
       ]
     }
-    resources = ["arn:aws:s3:::ut-logs/AWSLogs/${var.aws_account_id}/*"]
+    resources = ["arn:aws:s3:::ut-logs${lower(random_id.s3_suffix_random.id)}/AWSLogs/${var.aws_account_id}/*"]
   }
 
   statement {
@@ -114,15 +129,15 @@ data "aws_iam_policy_document" "logs_policy" {
     ]
 
     principals {
-      type        = "AWS"
+      type = "AWS"
       identifiers = [
         "arn:aws:iam::${var.aws_account_id}:root"
       ]
     }
 
     resources = [
-      "arn:aws:s3:::ut-logs",
-      "arn:aws:s3:::ut-logs/*"
+      "arn:aws:s3:::ut-logs${lower(random_id.s3_suffix_random.id)}",
+      "arn:aws:s3:::ut-logs${lower(random_id.s3_suffix_random.id)}/*"
     ]
   }
 }
