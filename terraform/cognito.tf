@@ -142,6 +142,7 @@ resource "random_string" "cognito_domain_suffix" {
 
 # Store Cognito configuration in Secrets Manager
 resource "aws_secretsmanager_secret" "ut_cognito_config" {
+  #checkov:skip=CKV2_AWS_57:Not Need for rotation here
   count                   = var.enable_cognito ? 1 : 0
   name                    = "ut-cognito-configuration"
   description             = "Cognito configuration for UT Platform"

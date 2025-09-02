@@ -2,7 +2,9 @@
 # EFS #
 #######
 resource "aws_efs_file_system" "ut_workers_file_system" {
+  #checkov:skip=CKV_AWS_184:KMS should be handle by the final customer
   creation_token = "ut-workers-efs"
+  encrypted = true
 
   tags = {
     Name = "ut-workers-efs"

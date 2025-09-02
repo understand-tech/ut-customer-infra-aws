@@ -45,7 +45,7 @@ resource "aws_ecs_task_definition" "ut_llm" {
   memory       = "200000"
 
   execution_role_arn       = aws_iam_role.ut_llm_container_role.arn
-  task_role_arn            = aws_iam_role.ut_llm_container_role.arn
+  task_role_arn            = aws_iam_role.ut_llm_container_role_task.arn
   requires_compatibilities = ["EC2"]
 
   volume {
@@ -229,9 +229,22 @@ resource "aws_iam_role" "ut_llm_container_role" {
   assume_role_policy = data.aws_iam_policy_document.llm_role_trust.json
 }
 
+resource "aws_iam_role" "ut_llm_container_role_task" {
+  name = "ut-llm-container-task-role"
+  path = "/service-role/fargate/"
+
+  assume_role_policy = data.aws_iam_policy_document.llm_role_trust.json
+}
+
 resource "aws_iam_role_policy" "llm_role_policy" {
   name   = "llm-container-policy"
   role   = aws_iam_role.ut_llm_container_role.id
+  policy = data.aws_iam_policy_document.llm_role_exec.json
+}
+
+resource "aws_iam_role_policy" "llm_role_policy_task" {
+  name   = "llm-container-task-policy"
+  role   = aws_iam_role.ut_llm_container_role_task.id
   policy = data.aws_iam_policy_document.llm_role_exec.json
 }
 
@@ -337,6 +350,7 @@ data "aws_iam_policy_document" "llm_role_exec" {
 # CloudWatch Logs #
 ###################
 resource "aws_cloudwatch_log_group" "ut_llm" {
+  #checkov:skip=CKV_AWS_158:KMS should be handle by the final customer
   name              = "/ecs/ut-llm"
-  retention_in_days = 30
+  retention_in_days = 365
 }

@@ -23,7 +23,7 @@ resource "aws_ecs_task_definition" "ut_workers" {
   memory       = 8192 # 8 GiB
 
   execution_role_arn       = aws_iam_role.ut_workers_container_role.arn
-  task_role_arn            = aws_iam_role.ut_workers_container_role.arn
+  task_role_arn            = aws_iam_role.ut_workers_container_role_task.arn
   requires_compatibilities = ["FARGATE"]
 
   volume {
@@ -185,9 +185,22 @@ resource "aws_iam_role" "ut_workers_container_role" {
   assume_role_policy = data.aws_iam_policy_document.ut_workers_role_trust.json
 }
 
+resource "aws_iam_role" "ut_workers_container_role_task" {
+  name = "ut-workers-container-task-role"
+  path = "/service-role/fargate/"
+
+  assume_role_policy = data.aws_iam_policy_document.ut_workers_role_trust.json
+}
+
 resource "aws_iam_role_policy" "ut_workers_role_policy" {
   name   = "ut-workers-container-policy"
   role   = aws_iam_role.ut_workers_container_role.id
+  policy = data.aws_iam_policy_document.ut_workers_role_exec.json
+}
+
+resource "aws_iam_role_policy" "ut_workers_role_policy_task" {
+  name   = "ut-workers-container-task-policy"
+  role   = aws_iam_role.ut_workers_container_role_task.id
   policy = data.aws_iam_policy_document.ut_workers_role_exec.json
 }
 
@@ -294,6 +307,7 @@ data "aws_iam_policy_document" "ut_workers_role_exec" {
 # CloudWatch Logs #
 ###################
 resource "aws_cloudwatch_log_group" "ut_workers" {
+  #checkov:skip=CKV_AWS_158:KMS should be handle by the final customer
   name              = "/ecs/ut-workers"
-  retention_in_days = 30
+  retention_in_days = 365
 }
