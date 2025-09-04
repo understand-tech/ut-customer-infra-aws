@@ -47,7 +47,7 @@ locals {
 resource "aws_secretsmanager_secret" "ut_mongodb_password" {
   #checkov:skip=CKV_AWS_149:KMS should be handle by the final customer
   #checkov:skip=CKV2_AWS_57:Not Need for rotation here
-  name   = "mongodb-password"
+  name   = "ut-mongodb-password"
   policy = data.aws_iam_policy_document.task_secrets_generic_policy.json
 }
 

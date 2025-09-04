@@ -329,7 +329,7 @@ data "aws_iam_policy_document" "llm_role_exec" {
     ]
 
     resources = [
-      "*"
+      "ut-*"
     ]
   }
 

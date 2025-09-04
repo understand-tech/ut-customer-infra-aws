@@ -233,7 +233,7 @@ data "aws_iam_policy_document" "ut_mongodb_role_exec" {
     ]
 
     resources = [
-      "*"
+      "ut-*"
     ]
   }
 }

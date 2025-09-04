@@ -202,7 +202,7 @@ data "aws_iam_policy_document" "ut_frontend_role_exec" {
     ]
 
     resources = [
-      "*"
+      "ut-*"
     ]
   }
 }

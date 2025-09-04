@@ -290,20 +290,6 @@ data "aws_iam_policy_document" "workers_customer_role_exec" {
   }
 
   statement {
-
-    actions = [
-      "secretsmanager:GetResourcePolicy",
-      "secretsmanager:GetSecretValue",
-      "secretsmanager:DescribeSecret",
-      "secretsmanager:ListSecretVersionIds"
-    ]
-
-    resources = [
-      "*"
-    ]
-  }
-
-  statement {
     sid = "AllowSecretsManager"
 
     actions = [
@@ -314,7 +300,7 @@ data "aws_iam_policy_document" "workers_customer_role_exec" {
     ]
 
     resources = [
-      "*"
+      "ut-*"
     ]
   }
 
