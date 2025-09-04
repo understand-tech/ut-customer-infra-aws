@@ -45,7 +45,7 @@ resource "aws_ecs_task_definition" "ut_workers" {
       command = [
         "sh",
         "-c",
-        "rq worker --url redis://$REDIS_HOST:${local.ut_redis_port}"
+        "rq worker --url redis://$REDIS_HOST:${local.ut_redis_port} ut-api"
       ],
       mountPoints = [
         {

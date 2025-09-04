@@ -45,7 +45,7 @@ resource "aws_ecs_task_definition" "workers_customer" {
       command = [
         "sh",
         "-c",
-        "rq worker --url redis://$REDIS_HOST:$REDIS_PORT"
+        "rq worker --url redis://$REDIS_HOST:$REDIS_PORT ut-api-partners"
       ],
       mountPoints = [
         {
