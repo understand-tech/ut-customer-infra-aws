@@ -124,7 +124,8 @@ data "aws_iam_policy_document" "task_secrets_generic_policy" {
       identifiers = [
         aws_iam_role.ut_api_container_role.arn,
         aws_iam_role.ut_workers_container_role.arn,
-        aws_iam_role.ut_mongodb_container_role.arn
+        aws_iam_role.ut_mongodb_container_role.arn,
+        aws_iam_role.ut_api_custom_role.arn
       ]
     }
   }
