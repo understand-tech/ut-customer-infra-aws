@@ -273,25 +273,6 @@ data "aws_iam_policy_document" "llm_role_trust" {
 
 data "aws_iam_policy_document" "llm_role_exec" {
   statement {
-    sid = "AllowSsm"
-
-    actions = [
-      "ssm:StartSession",
-      "ssm:DescribeSessions",
-      "ssm:GetSession",
-      "ssm:TerminateSession",
-      "ssmmessages:CreateControlChannel",
-      "ssmmessages:CreateDataChannel",
-      "ssmmessages:OpenControlChannel",
-      "ssmmessages:OpenDataChannel"
-    ]
-
-    resources = [
-      "*"
-    ]
-  }
-
-  statement {
     sid = "AllowEfs"
 
     actions = [
@@ -316,7 +297,7 @@ data "aws_iam_policy_document" "llm_role_exec" {
     ]
 
     resources = [
-      "*"
+      "arn:aws:logs:${var.aws_region}:${var.aws_account_id}:log-group:/ecs/ut-llm:*"
     ]
   }
 
@@ -329,7 +310,7 @@ data "aws_iam_policy_document" "llm_role_exec" {
     ]
 
     resources = [
-      "*"
+      "arn:aws:secretsmanager:${var.aws_region}:${var.aws_account_id}:secret:ut-*"
     ]
   }
 

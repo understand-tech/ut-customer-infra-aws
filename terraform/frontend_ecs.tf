@@ -161,25 +161,6 @@ data "aws_iam_policy_document" "ut_frontend_role_trust" {
 
 data "aws_iam_policy_document" "ut_frontend_role_exec" {
   statement {
-    sid = "AllowEcr"
-
-    actions = [
-      "ssm:StartSession",
-      "ssm:DescribeSessions",
-      "ssm:GetSession",
-      "ssm:TerminateSession",
-      "ssmmessages:CreateControlChannel",
-      "ssmmessages:CreateDataChannel",
-      "ssmmessages:OpenControlChannel",
-      "ssmmessages:OpenDataChannel"
-    ]
-
-    resources = [
-      "*"
-    ]
-  }
-
-  statement {
     sid = "AllowLogs"
 
     actions = [
@@ -188,7 +169,7 @@ data "aws_iam_policy_document" "ut_frontend_role_exec" {
     ]
 
     resources = [
-      "*"
+      "arn:aws:logs:${var.aws_region}:${var.aws_account_id}:log-group:/ecs/ut-frontend:*"
     ]
   }
 
@@ -202,7 +183,7 @@ data "aws_iam_policy_document" "ut_frontend_role_exec" {
     ]
 
     resources = [
-      "*"
+      "arn:aws:secretsmanager:${var.aws_region}:${var.aws_account_id}:secret:ut-*"
     ]
   }
 }

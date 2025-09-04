@@ -47,7 +47,7 @@ locals {
 resource "aws_secretsmanager_secret" "ut_mongodb_password" {
   #checkov:skip=CKV_AWS_149:KMS should be handle by the final customer
   #checkov:skip=CKV2_AWS_57:Not Need for rotation here
-  name   = "mongodb-password"
+  name   = "ut-mongodb-password"
   policy = data.aws_iam_policy_document.task_secrets_generic_policy.json
 }
 
@@ -65,7 +65,9 @@ data "aws_iam_policy_document" "task_secrets_generic_policy" {
     sid       = "AllowDeployer"
     effect    = "Allow"
     actions   = ["secretsmanager:*"]
-    resources = ["*"]
+    resources = [
+      "arn:aws:secretsmanager:${var.aws_region}:${var.aws_account_id}:secret:ut-*"
+    ]
 
     principals {
       type        = "AWS"
@@ -77,7 +79,9 @@ data "aws_iam_policy_document" "task_secrets_generic_policy" {
     sid       = "AllowAdministration"
     effect    = "Allow"
     actions   = ["secretsmanager:*"]
-    resources = ["*"]
+    resources = [
+      "arn:aws:secretsmanager:${var.aws_region}:${var.aws_account_id}:secret:ut-*"
+    ]
 
     principals {
       type        = "AWS"
@@ -93,7 +97,9 @@ data "aws_iam_policy_document" "task_secrets_generic_policy" {
       "secretsmanager:DescribeSecret",
       "secretsmanager:ListSecretVersionIds"
     ]
-    resources = ["*"]
+    resources = [
+      "arn:aws:secretsmanager:${var.aws_region}:${var.aws_account_id}:secret:ut-*"
+    ]
 
     principals {
       type        = "AWS"
@@ -111,14 +117,15 @@ data "aws_iam_policy_document" "task_secrets_generic_policy" {
       "secretsmanager:ListSecretVersionIds"
     ]
     resources = [
-      "*"
+      "arn:aws:secretsmanager:${var.aws_region}:${var.aws_account_id}:secret:ut-*"
     ]
     principals {
       type = "AWS"
       identifiers = [
         aws_iam_role.ut_api_container_role.arn,
         aws_iam_role.ut_workers_container_role.arn,
-        aws_iam_role.ut_mongodb_container_role.arn
+        aws_iam_role.ut_mongodb_container_role.arn,
+        aws_iam_role.ut_api_custom_role.arn
       ]
     }
   }
