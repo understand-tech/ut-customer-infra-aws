@@ -313,7 +313,7 @@ data "aws_iam_policy_document" "ut_api_custom_role_exec" {
     ]
 
     resources = [
-      "arn:aws:logs:${var.aws_region}:${var.aws_account_id}:log-group:/ecs/ut-frontend:*"
+      "arn:aws:logs:${var.aws_region}:${var.aws_account_id}:log-group:/ecs/ut-api-customer:*"
     ]
   }
 
