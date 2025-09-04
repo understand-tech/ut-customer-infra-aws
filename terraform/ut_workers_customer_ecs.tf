@@ -266,7 +266,7 @@ data "aws_iam_policy_document" "workers_customer_role_exec" {
     ]
 
     resources = [
-      "ut-*"
+      "arn:aws:secretsmanager:${var.aws_region}:${var.aws_account_id}:secret:ut-*"
     ]
   }
 

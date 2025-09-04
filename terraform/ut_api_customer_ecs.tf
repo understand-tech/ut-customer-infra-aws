@@ -318,21 +318,6 @@ data "aws_iam_policy_document" "ut_api_custom_role_exec" {
   }
 
   statement {
-    sid = "AllowKms"
-
-    actions = [
-      "kms:Decrypt",
-      "kms:Encrypt",
-      "kms:GenerateDataKey*",
-      "kms:DescribeKey"
-    ]
-
-    resources = [
-      "*"
-    ]
-  }
-
-  statement {
     sid = "AllowSecretsManager"
 
     actions = [
@@ -343,7 +328,7 @@ data "aws_iam_policy_document" "ut_api_custom_role_exec" {
     ]
 
     resources = [
-      "ut-*"
+      "arn:aws:secretsmanager:${var.aws_region}:${var.aws_account_id}:secret:ut-*"
     ]
   }
 

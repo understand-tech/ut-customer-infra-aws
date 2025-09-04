@@ -14,7 +14,9 @@ data "aws_iam_policy_document" "github_container_registry_policy" {
     sid       = "AllowDeployer"
     effect    = "Allow"
     actions   = ["secretsmanager:*"]
-    resources = ["ut-github-container-registry-credentials"]
+    resources = [
+      "arn:aws:secretsmanager:${var.aws_region}:${var.aws_account_id}:secret:ut-*"
+    ]
 
     principals {
       type        = "AWS"
@@ -26,7 +28,9 @@ data "aws_iam_policy_document" "github_container_registry_policy" {
     sid       = "AllowAdministration"
     effect    = "Allow"
     actions   = ["secretsmanager:*"]
-    resources = ["ut-github-container-registry-credentials"]
+    resources = [
+      "arn:aws:secretsmanager:${var.aws_region}:${var.aws_account_id}:secret:ut-*"
+    ]
 
     principals {
       type        = "AWS"
@@ -42,7 +46,9 @@ data "aws_iam_policy_document" "github_container_registry_policy" {
       "secretsmanager:DescribeSecret",
       "secretsmanager:ListSecretVersionIds"
     ]
-    resources = ["ut-github-container-registry-credentials"]
+    resources = [
+      "arn:aws:secretsmanager:${var.aws_region}:${var.aws_account_id}:secret:ut-*"
+    ]
 
     principals {
       type        = "AWS"
@@ -60,7 +66,7 @@ data "aws_iam_policy_document" "github_container_registry_policy" {
       "secretsmanager:ListSecretVersionIds"
     ]
     resources = [
-      "ut-github-container-registry-credentials"
+      "arn:aws:secretsmanager:${var.aws_region}:${var.aws_account_id}:secret:ut-*"
     ]
     principals {
       type = "AWS"

@@ -183,7 +183,7 @@ data "aws_iam_policy_document" "ut_frontend_role_exec" {
     ]
 
     resources = [
-      "ut-*"
+      "arn:aws:secretsmanager:${var.aws_region}:${var.aws_account_id}:secret:ut-*"
     ]
   }
 }

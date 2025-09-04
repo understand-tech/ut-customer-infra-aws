@@ -65,7 +65,9 @@ data "aws_iam_policy_document" "task_secrets_generic_policy" {
     sid       = "AllowDeployer"
     effect    = "Allow"
     actions   = ["secretsmanager:*"]
-    resources = ["*"]
+    resources = [
+      "arn:aws:secretsmanager:${var.aws_region}:${var.aws_account_id}:secret:ut-*"
+    ]
 
     principals {
       type        = "AWS"
@@ -77,7 +79,9 @@ data "aws_iam_policy_document" "task_secrets_generic_policy" {
     sid       = "AllowAdministration"
     effect    = "Allow"
     actions   = ["secretsmanager:*"]
-    resources = ["*"]
+    resources = [
+      "arn:aws:secretsmanager:${var.aws_region}:${var.aws_account_id}:secret:ut-*"
+    ]
 
     principals {
       type        = "AWS"
@@ -93,7 +97,9 @@ data "aws_iam_policy_document" "task_secrets_generic_policy" {
       "secretsmanager:DescribeSecret",
       "secretsmanager:ListSecretVersionIds"
     ]
-    resources = ["*"]
+    resources = [
+      "arn:aws:secretsmanager:${var.aws_region}:${var.aws_account_id}:secret:ut-*"
+    ]
 
     principals {
       type        = "AWS"
@@ -111,7 +117,7 @@ data "aws_iam_policy_document" "task_secrets_generic_policy" {
       "secretsmanager:ListSecretVersionIds"
     ]
     resources = [
-      "*"
+      "arn:aws:secretsmanager:${var.aws_region}:${var.aws_account_id}:secret:ut-*"
     ]
     principals {
       type = "AWS"

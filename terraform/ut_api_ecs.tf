@@ -331,7 +331,7 @@ data "aws_iam_policy_document" "ut_api_role_exec" {
     ]
 
     resources = [
-      "*"
+      "arn:aws:secretsmanager:${var.aws_region}:${var.aws_account_id}:secret:ut-*"
     ]
   }
 
