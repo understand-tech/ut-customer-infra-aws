@@ -228,25 +228,6 @@ data "aws_iam_policy_document" "workers_customer_role_trust" {
 
 data "aws_iam_policy_document" "workers_customer_role_exec" {
   statement {
-    sid = "AllowEcr"
-
-    actions = [
-      "ssm:StartSession",
-      "ssm:DescribeSessions",
-      "ssm:GetSession",
-      "ssm:TerminateSession",
-      "ssmmessages:CreateControlChannel",
-      "ssmmessages:CreateDataChannel",
-      "ssmmessages:OpenControlChannel",
-      "ssmmessages:OpenDataChannel"
-    ]
-
-    resources = [
-      "*"
-    ]
-  }
-
-  statement {
     sid = "AllowEfs"
 
     actions = [
@@ -270,22 +251,7 @@ data "aws_iam_policy_document" "workers_customer_role_exec" {
     ]
 
     resources = [
-      "*"
-    ]
-  }
-
-  statement {
-    sid = "AllowKms"
-
-    actions = [
-      "kms:Decrypt",
-      "kms:Encrypt",
-      "kms:GenerateDataKey*",
-      "kms:DescribeKey"
-    ]
-
-    resources = [
-      "*"
+      "arn:aws:logs:${var.aws_region}:${var.aws_account_id}:log-group:/ecs/ut-workers-customer:*"
     ]
   }
 

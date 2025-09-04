@@ -290,25 +290,6 @@ data "aws_iam_policy_document" "ut_api_custom_role_trust" {
 
 data "aws_iam_policy_document" "ut_api_custom_role_exec" {
   statement {
-    sid = "AllowEcr"
-
-    actions = [
-      "ssm:StartSession",
-      "ssm:DescribeSessions",
-      "ssm:GetSession",
-      "ssm:TerminateSession",
-      "ssmmessages:CreateControlChannel",
-      "ssmmessages:CreateDataChannel",
-      "ssmmessages:OpenControlChannel",
-      "ssmmessages:OpenDataChannel"
-    ]
-
-    resources = [
-      "*"
-    ]
-  }
-
-  statement {
     sid = "AllowEfs"
 
     actions = [
@@ -332,7 +313,7 @@ data "aws_iam_policy_document" "ut_api_custom_role_exec" {
     ]
 
     resources = [
-      "*"
+      "arn:aws:logs:${var.aws_region}:${var.aws_account_id}:log-group:/ecs/ut-frontend:*"
     ]
   }
 
