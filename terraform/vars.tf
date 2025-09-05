@@ -67,7 +67,7 @@ variable "cloudfront_alternate_domain_list" {
 ######################################
 variable "ut_worker_registry_uri" {
   description = "URI used to download UT Worker docker image"
-  default     = "ghcr.io/understand-tech/ut-worker-customer:1.0.3-release"
+  default     = "ghcr.io/understand-tech/ut-worker-customer:1.0.4-release"
   type        = string
 }
 
@@ -151,7 +151,7 @@ variable "ut_api_customer_listen_port" {
 ##################################
 variable "ut_api_registry_uri" {
   description = "URI used to download UT API docker image"
-  default     = "ghcr.io/understand-tech/ut-api-customer:1.0.3-release"
+  default     = "ghcr.io/understand-tech/ut-api-customer:1.0.4-release"
 }
 
 variable "ut_desired_count" {
