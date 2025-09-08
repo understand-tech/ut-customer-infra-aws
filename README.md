@@ -189,7 +189,7 @@ AWS ECS Service must be able to access this registry; ensure GitHub credentials 
 
 | Parameter | Value|
 |-----------|------|
-| Docker image | ghcr.io/understand-tech/ut-api-customer:1.0.3-release |
+| Docker image | ghcr.io/understand-tech/ut-api-customer:1.0.5-release |
 | vCPU | 4 |
 | Memory | 8 Go |
 | TCP port | 8501 |
@@ -202,7 +202,7 @@ AWS ECS Service must be able to access this registry; ensure GitHub credentials 
 
 | Parameter | Value|
 |-----------|------|
-| Docker image | ghcr.io/understand-tech/ut-worker-customer:1.0.3-release |
+| Docker image | ghcr.io/understand-tech/ut-worker-customer:1.0.5-release |
 | vCPU | 4 |
 | Memory | 8 Go |
 | TCP port | N/A |
@@ -237,7 +237,7 @@ AWS ECS Service must be able to access this registry; ensure GitHub credentials 
 
 | Parameter | Value|
 |-----------|------|
-| Docker image | ghcr.io/understand-tech/ut-api-rest-customer:1.0.0-release |
+| Docker image | ghcr.io/understand-tech/ut-api-rest-customer:1.0.1-release |
 | vCPU | 4 |
 | Memory | 8 Go |
 | TCP port | 8501 |
@@ -249,7 +249,7 @@ AWS ECS Service must be able to access this registry; ensure GitHub credentials 
 
 | Parameter | Value|
 |-----------|------|
-| Docker image | ghcr.io/understand-tech/ut-worker-rest-customer:1.0.0-release |
+| Docker image | ghcr.io/understand-tech/ut-worker-rest-customer:1.0.1-release |
 | vCPU | 4 |
 | Memory | 8 Go |
 | TCP port | N/A |
