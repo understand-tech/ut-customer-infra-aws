@@ -50,7 +50,7 @@ resource "aws_autoscaling_group" "ut_llg_asg" {
   name                = "ut-llm-instance-asg"
   desired_capacity    = 1
   max_size            = 2
-  min_size            = 1
+  min_size            = 0
   vpc_zone_identifier = var.private_subnets_ids
 
   health_check_grace_period = 30
