@@ -51,6 +51,7 @@ resource "aws_cloudfront_distribution" "ut_frontend_distribution" {
     compress                 = true
     origin_request_policy_id = "216adef6-5c7f-47e4-b989-5492eafa07d3"
     cache_policy_id          = "4135ea2d-6df8-44a3-9df3-4b5a84be39ad"
+    response_headers_policy_id = data.aws_cloudfront_response_headers_policy.security.id
 
     function_association {
       event_type   = "viewer-request"
