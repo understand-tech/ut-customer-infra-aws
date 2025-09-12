@@ -89,14 +89,6 @@ resource "aws_s3_bucket_versioning" "logs" {
   }
 }
 
-resource "aws_s3_bucket_ownership_controls" "ownership_for_cloudfront" {
-  bucket = aws_s3_bucket.logs.id
-
-  rule {
-    object_ownership = "BucketOwnerPreferred"
-  }
-}
-
 data "aws_iam_policy_document" "logs_policy" {
   statement {
     sid    = "AllowALB"
