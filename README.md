@@ -215,7 +215,7 @@ AWS ECS Service must be able to access this registry; ensure GitHub credentials 
 
 | Parameter | Value|
 |-----------|------|
-| Docker image | ghcr.io/understand-tech/ut-llm-customer:1.0.3-release |
+| Docker image | ghcr.io/understand-tech/ut-llm-customer:1.0.4-release |
 | vCPU | 29.3 |
 | GPU | 48 Gb |
 | Memory | 195.3 Gb |
