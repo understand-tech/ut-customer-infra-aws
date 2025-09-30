@@ -67,7 +67,7 @@ variable "cloudfront_alternate_domain_list" {
 ######################################
 variable "ut_worker_registry_uri" {
   description = "URI used to download UT Worker docker image"
-  default     = "ghcr.io/understand-tech/ut-worker-customer:1.0.4-release"
+  default     = "ghcr.io/understand-tech/ut-worker-customer:1.0.5-release"
   type        = string
 }
 
@@ -77,7 +77,7 @@ variable "ut_worker_registry_uri" {
 #########################################
 variable "llm_registry_uri" {
   description = "URI used to download UT LLM docker image"
-  default     = "ghcr.io/understand-tech/ut-llm-customer:1.0.3-release"
+  default     = "ghcr.io/understand-tech/ut-llm-customer:1.0.4-release"
   type        = string
 }
 
@@ -133,7 +133,7 @@ variable "enable_cognito" {
 ######################################
 variable "ut_api_customer_registry_uri" {
   description = "URI used to download UT API CUSTOMER docker image"
-  default     = "ghcr.io/understand-tech/ut-api-rest-customer:1.0.0-release"
+  default     = "ghcr.io/understand-tech/ut-api-rest-customer:1.0.1-release"
 }
 
 variable "ut_api_customer_desired_count" {
@@ -151,7 +151,7 @@ variable "ut_api_customer_listen_port" {
 ##################################
 variable "ut_api_registry_uri" {
   description = "URI used to download UT API docker image"
-  default     = "ghcr.io/understand-tech/ut-api-customer:1.0.4-release"
+  default     = "ghcr.io/understand-tech/ut-api-customer:1.0.5-release"
 }
 
 variable "ut_desired_count" {
@@ -169,7 +169,7 @@ variable "ut_listen_port" {
 ###############################################
 variable "worker_customer_registry_uri" {
   description = "URI used to download UT Worker docker image"
-  default     = "ghcr.io/understand-tech/ut-worker-rest-customer:1.0.0-release"
+  default     = "ghcr.io/understand-tech/ut-worker-rest-customer:1.0.1-release"
 }
 
 variable "ut_workers_customer_desired_count" {
